@@ -77,8 +77,8 @@ require("./config")(app);
 
 // 👇 Start handling routes here
 // Contrary to the views version, all routes are controlled from the routes/index.js
-const projects = require("./routes/projects");
-app.use("/api/projects", projects);
+const recipes = require("./routes/recipes");
+app.use("/api/recipes", recipes);
 
 const auth = require("./routes/auth");
 app.use("/api/auth", auth);
