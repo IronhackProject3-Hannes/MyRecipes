@@ -16,9 +16,7 @@ export default function AddProject(props) {
     axios
       .post(`${API_URL}/api/recipes`, requestBody)
       .then((response) => {
-        // reset the state and thereby reset the form
-        setStrMeal("");
-        setStrTags("");
+        props.history.push("/recipes");
       })
       .catch((err) => console.log(err));
   };

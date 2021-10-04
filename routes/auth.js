@@ -22,7 +22,7 @@ router.post("/login", (req, res, next) => {
 
 router.post("/signup", (req, res, next) => {
   console.log(req.body);
-  const { username, password } = req.body;
+  const { username, password, role } = req.body;
   if (password.length < 4) {
     res.status(400).json({ message: "Your password needs to be 4 chars min" });
     return;
@@ -37,7 +37,7 @@ router.post("/signup", (req, res, next) => {
     } else {
       const salt = bcrypt.genSaltSync();
       const hash = bcrypt.hashSync(password, salt);
-      User.create({ username: username, password: hash })
+      User.create({ username: username, password: hash, role: role })
         .then((createdUser) => {
           req.user = createdUser;
           res.status(200).json(createdUser);

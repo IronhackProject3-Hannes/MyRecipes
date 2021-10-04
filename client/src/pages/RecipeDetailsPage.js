@@ -10,6 +10,7 @@ export default function ProjectDetailsPage(props) {
   const recipeId = props.match.params.id;
 
   const getRecipe = () => {
+    console.log(props.user);
     console.log(recipeId);
     axios
       .get(`${API_URL}/api/recipes/${recipeId}`)
@@ -30,12 +31,19 @@ export default function ProjectDetailsPage(props) {
         <>
           <h1>{recipe.strMeal}</h1>
           <p>{recipe.strTags}</p>
-          <Link to={`/recipe/edit/${recipe._id}`}>
-            <button>Edit this recipe</button>
-          </Link>
+          {props.user._id === recipe.creatorId ? (
+            <Link to={`/recipe/edit/${recipe._id}`}>
+              <button>Edit this recipe</button>
+            </Link>
+          ) : (
+            props.user.role === "admin" && (
+              <Link to={`/recipe/edit/${recipe._id}`}>
+                <button>Edit this recipe</button>
+              </Link>
+            )
+          )}
         </>
       )}
-      {/* Edit the project */}
     </div>
   );
 }
