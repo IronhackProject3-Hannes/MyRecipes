@@ -8,7 +8,6 @@ export default function Signup(props) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(username, password);
 
     signup(username, password)
       .then((response) => {
@@ -23,7 +22,7 @@ export default function Signup(props) {
           // user is correctly signed up in the backend
           // add the user to the state of App.js
           props.setUser(response);
-          // redirect to the projects overview
+          // redirect to the recipes list page
           props.history.push("/recipes");
         }
       })

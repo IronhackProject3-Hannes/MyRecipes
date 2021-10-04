@@ -13,7 +13,6 @@ export default function EditProjectPage(props) {
     axios
       .get(`${API_URL}/api/recipes/${recipeId}`)
       .then((response) => {
-        console.log("use effect");
         setStrMeal(response.data.strMeal);
         setStrTags(response.data.strTags);
       })

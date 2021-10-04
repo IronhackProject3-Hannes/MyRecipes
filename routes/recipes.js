@@ -13,10 +13,12 @@ router.get("/", (req, res, next) => {
 
 // create a recipe
 router.post("/", (req, res, next) => {
-  const { strMeal, strTags } = req.body;
+  console.log(req.body);
+  const { strMeal, strTags, creatorId } = req.body;
   Recipe.create({
     strMeal,
     strTags,
+    creatorId,
   })
     .then((recipe) => {
       // we return http status code 201 - created

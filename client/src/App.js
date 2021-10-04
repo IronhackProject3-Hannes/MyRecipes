@@ -4,6 +4,7 @@ import Navbar from "./components/Navbar";
 import { useState } from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
 import RecipeListPage from "./pages/RecipeListPage";
+import AddRecipePage from "./pages/AddRecipePage";
 import RecipeDetailsPage from "./pages/RecipeDetailsPage";
 import EditRecipePage from "./pages/EditRecipePage";
 import Signup from "./pages/Signup";
@@ -24,6 +25,7 @@ function App(props) {
       <Navbar user={user} setUser={addUser} />
       <Switch>
         <Route exact path="/" component={HomePage} />
+        {/* not need to protect all recipe */}
         <Route exact path="/recipes" component={RecipeListPage} />
         {/* <Route
           exact path="/projects"
@@ -41,6 +43,14 @@ function App(props) {
           user={user}
           component={RecipeListPage}
         /> */}
+        <ProtectedRoute
+          exact
+          path="/recipes/add"
+          user={user}
+          component={AddRecipePage}
+          redirect="/recipes"
+        />
+
         {/* <Route exact path="/projects/:id" component={ProjectDetailsPage} /> */}
         <ProtectedRoute
           exact
@@ -49,7 +59,13 @@ function App(props) {
           component={RecipeDetailsPage}
           redirect="/login"
         />
-        <Route exact path="/recipe/edit/:id" component={EditRecipePage} />
+        <ProtectedRoute
+          exact
+          path="/recipe/edit/:id"
+          user={user}
+          component={EditRecipePage}
+          redirect="/recipe/:id"
+        />
         <Route
           exact
           path="/signup"

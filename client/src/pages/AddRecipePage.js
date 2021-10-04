@@ -11,15 +11,14 @@ export default function AddProject(props) {
     e.preventDefault();
 
     // make a post request to the server with the form fields in the body
-    const requestBody = { strMeal, strTags };
+    const requestBody = { strMeal, strTags, creatorId: props.user._id };
+    console.log(props.user);
     axios
-      .post(`${API_URL}/api/projects`, requestBody)
+      .post(`${API_URL}/api/recipes`, requestBody)
       .then((response) => {
         // reset the state and thereby reset the form
         setStrMeal("");
         setStrTags("");
-        // we need to trigger 'getAllProjects' in the ProjectListPage component
-        props.refreshProjects();
       })
       .catch((err) => console.log(err));
   };
@@ -42,7 +41,7 @@ export default function AddProject(props) {
           value={strTags}
           onChange={(e) => setStrTags(e.target.value)}
         />
-        <button type="submit">Add this project ＋</button>
+        <button type="submit">Add this recipe ＋</button>
       </form>
     </div>
   );

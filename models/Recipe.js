@@ -4,6 +4,7 @@ const { Schema, model } = require("mongoose");
 const recipeSchema = new Schema({
   strMeal: {
     type: String,
+    required: true,
     // unique: true -> Ideally, should be unique, but its up to you
   },
   strCategory: String,
@@ -16,8 +17,14 @@ const recipeSchema = new Schema({
       strMeasure: String,
     },
   ],
-  strTags: String,
-  creatorId: String,
+  strTags: {
+    type: String,
+    required: true,
+  },
+  creatorId: {
+    type: String,
+    required: true,
+  },
 });
 
 const Recipe = model("recipe", recipeSchema);
