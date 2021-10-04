@@ -24,7 +24,7 @@ export default function Signup(props) {
           // add the user to the state of App.js
           props.setUser(response);
           // redirect to the projects overview
-          props.history.push("/projects");
+          props.history.push("/recipes");
         }
       })
       .catch((err) => console.log(err));

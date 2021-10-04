@@ -1,17 +1,17 @@
 const router = require("express").Router();
 const Recipe = require("../models/Recipe");
 
-// get all projects
+// get all recipes
 router.get("/", (req, res, next) => {
   Recipe.find()
-    .then((recipe) => {
-      console.log(recipe);
-      res.status(200).json(projects);
+    .then((recipes) => {
+      console.log(recipes);
+      res.status(200).json(recipes);
     })
     .catch((err) => next(err));
 });
 
-// create a project
+// create a recipe
 router.post("/", (req, res, next) => {
   const { strMeal, strTags } = req.body;
   Recipe.create({
@@ -29,7 +29,7 @@ router.post("/", (req, res, next) => {
 
 // get a specific recipe
 router.get("/:id", (req, res, next) => {
-  Project.findById(req.params.id)
+  Recipe.findById(req.params.id)
     .then((recipe) => {
       // check if the id is not valid
       // if (!mongoose.Types.ObjectId.isValid(req.params.id))
@@ -48,7 +48,7 @@ router.get("/:id", (req, res, next) => {
 // update recipe
 // router.put("/:id", (req, res, next) => {
 //   const { title, description } = req.body;
-//   Project.findByIdAndUpdate(
+//   Recipe.findByIdAndUpdate(
 //     req.params.id,
 //     { title: title, description: description },
 //     { new: true }
@@ -59,6 +59,7 @@ router.get("/:id", (req, res, next) => {
 //     .catch((err) => next(err));
 // });
 
+// delete a recipe
 router.delete("/:id", (req, res, next) => {
   Recipe.findByIdAndDelete(req.params.id).then(() => {
     res.status(200).json({ message: "recipe deleted" });

@@ -5,32 +5,33 @@ import axios from "axios";
 export default function ProjectDetailsPage(props) {
   const API_URL = "http://localhost:5005";
 
-  const [project, setProject] = useState(null);
+  const [recipe, setRecipe] = useState(null);
 
-  const projectId = props.match.params.id;
+  const recipeId = props.match.params.id;
 
-  const getProject = () => {
+  const getRecipe = () => {
+    console.log(recipeId);
     axios
-      .get(`${API_URL}/api/projects/${projectId}`)
+      .get(`${API_URL}/api/recipes/${recipeId}`)
       .then((response) => {
         console.log(response.data);
-        setProject(response.data);
+        setRecipe(response.data);
       })
       .catch((err) => console.log(err));
   };
 
   useEffect(() => {
-    getProject();
+    getRecipe();
   }, []);
 
   return (
     <div>
-      {project && (
+      {recipe && (
         <>
-          <h1>{project.title}</h1>
-          <p>{project.description}</p>
-          <Link to={`/projects/edit/${project._id}`}>
-            <button>Edit this project</button>
+          <h1>{recipe.strMeal}</h1>
+          <p>{recipe.strTags}</p>
+          <Link to={`/projects/edit/${recipe._id}`}>
+            <button>Edit this recipe</button>
           </Link>
         </>
       )}

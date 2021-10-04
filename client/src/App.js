@@ -3,9 +3,9 @@ import HomePage from "./pages/HomePage";
 import Navbar from "./components/Navbar";
 import { useState } from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
-import ProjectListPage from "./pages/ProjectListPage";
-import ProjectDetailsPage from "./pages/ProjectDetailsPage";
-import EditProjectPage from "./pages/EditProjectPage";
+import RecipeListPage from "./pages/RecipeListPage";
+import RecipeDetailsPage from "./pages/RecipeDetailsPage";
+import EditRecipePage from "./pages/EditRecipePage";
 import Signup from "./pages/Signup";
 import Login from "./pages/Login";
 import ProtectedRoute from "./components/ProtectedRoute";
@@ -24,7 +24,7 @@ function App(props) {
       <Navbar user={user} setUser={addUser} />
       <Switch>
         <Route exact path="/" component={HomePage} />
-        {/* <Route exact path="/projects" component={ProjectListPage} /> */}
+        <Route exact path="/recipes" component={RecipeListPage} />
         {/* <Route
           exact path="/projects"
           render={props => {
@@ -35,21 +35,21 @@ function App(props) {
             }
           }}
         /> */}
-        <ProtectedRoute
+        {/* <ProtectedRoute
           exact
-          path="/projects"
+          path="/recipes"
           user={user}
-          component={ProjectListPage}
-        />
+          component={RecipeListPage}
+        /> */}
         {/* <Route exact path="/projects/:id" component={ProjectDetailsPage} /> */}
         <ProtectedRoute
           exact
-          path="/projects/:id"
+          path="/recipe/:id"
           user={user}
-          component={ProjectDetailsPage}
+          component={RecipeDetailsPage}
           redirect="/login"
         />
-        <Route exact path="/projects/edit/:id" component={EditProjectPage} />
+        <Route exact path="/recipe/edit/:id" component={EditRecipePage} />
         <Route
           exact
           path="/signup"

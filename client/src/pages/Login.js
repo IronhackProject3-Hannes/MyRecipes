@@ -8,7 +8,6 @@ export default function Login(props) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(username, password);
 
     login(username, password)
       .then((response) => {
@@ -23,8 +22,8 @@ export default function Login(props) {
           // user is correctly signed up in the backend
           // add the user to the state of App.js
           props.setUser(response);
-          // redirect to the projects overview
-          props.history.push("/projects");
+          // redirect to the recipes list page
+          props.history.push("/recipes");
         }
       })
       .catch((err) => console.log(err));

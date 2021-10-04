@@ -16,8 +16,8 @@ export default function Navbar(props) {
           <Link to="/">
             <button>Home</button>
           </Link>
-          <Link to="/projects">
-            <button>Projects</button>
+          <Link to="/recipes">
+            <button>Recipes</button>
           </Link>
           <Link to="/" onClick={() => handleLogout()}>
             <button>Logout</button>

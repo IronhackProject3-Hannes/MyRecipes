@@ -17,6 +17,7 @@ const recipeSchema = new Schema({
     },
   ],
   strTags: String,
+  creatorId: String,
 });
 
 const Recipe = model("recipe", recipeSchema);
