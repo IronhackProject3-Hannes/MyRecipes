@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import RecipeCard from "../components/RecipeCard";
-import AddRecipe from "../components/AddRecipe";
 import { Link } from "react-router-dom";
 
 export default function RecipeListPage() {

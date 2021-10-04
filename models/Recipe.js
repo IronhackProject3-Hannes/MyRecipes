@@ -9,7 +9,6 @@ const recipeSchema = new Schema({
   },
   strCategory: String,
   strArea: String,
-  strInstructions: String,
   strMealThumb: String,
   Ingredients: [
     {
@@ -17,9 +16,9 @@ const recipeSchema = new Schema({
       strMeasure: String,
     },
   ],
+  Instructions: [],
   strTags: {
     type: String,
-    required: true,
   },
   creatorId: {
     type: String,
