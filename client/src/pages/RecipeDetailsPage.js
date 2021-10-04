@@ -30,7 +30,7 @@ export default function ProjectDetailsPage(props) {
         <>
           <h1>{recipe.strMeal}</h1>
           <p>{recipe.strTags}</p>
-          <Link to={`/projects/edit/${recipe._id}`}>
+          <Link to={`/recipe/edit/${recipe._id}`}>
             <button>Edit this recipe</button>
           </Link>
         </>

@@ -4,66 +4,66 @@ import { useState, useEffect } from "react";
 export default function EditProjectPage(props) {
   const API_URL = "http://localhost:5005";
 
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
+  const [strMeal, setStrMeal] = useState("");
+  const [strTags, setStrTags] = useState("");
 
-  const projectId = props.match.params.id;
+  const recipeId = props.match.params.id;
 
   useEffect(() => {
     axios
-      .get(`${API_URL}/api/projects/${projectId}`)
+      .get(`${API_URL}/api/recipes/${recipeId}`)
       .then((response) => {
         console.log("use effect");
-        setTitle(response.data.title);
-        setDescription(response.data.description);
+        setStrMeal(response.data.strMeal);
+        setStrTags(response.data.strTags);
       })
       .catch((err) => console.log(err));
   }, []);
 
-  const deleteProject = () => {
+  const deleteRecipe = () => {
     axios
-      .delete(`${API_URL}/api/projects/${projectId}`)
+      .delete(`${API_URL}/api/recipes/${recipeId}`)
       .then(() => {
         // redirect to the project list
-        props.history.push("/projects");
+        props.history.push("/recipes");
       })
       .catch((err) => console.log(err));
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const requestBody = { title, description };
+    const requestBody = { strMeal, strTags };
     axios
-      .put(`${API_URL}/api/projects/${projectId}`, requestBody)
+      .put(`${API_URL}/api/recipes/${recipeId}`, requestBody)
       .then((response) => {
         // this is a redirect using react router dom
-        props.history.push(`/projects/${projectId}`);
+        props.history.push(`/recipe/${recipeId}`);
       })
       .catch((err) => console.log(err));
   };
 
   return (
     <div>
-      <h3>Edit this project</h3>
+      <h3>Edit this recipe</h3>
       <form onSubmit={handleSubmit}>
-        <label htmlFor="title">Title: </label>
+        <label htmlFor="strMeal">Name: </label>
         <input
           type="text"
-          name="title"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
+          name="strMeal"
+          value={strMeal}
+          onChange={(e) => setStrMeal(e.target.value)}
         />
-        <label htmlFor="description">Description: </label>
+        <label htmlFor="strTags">Tags: </label>
         <input
           type="text"
-          name="description"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
+          name="strTags"
+          value={strTags}
+          onChange={(e) => setStrTags(e.target.value)}
         />
-        <button type="submit">Update this project</button>
+        <button type="submit">Update this recipe</button>
       </form>
 
-      <button onClick={deleteProject}>Delete this project 🗑</button>
+      <button onClick={deleteRecipe}>Delete this recipe 🗑</button>
     </div>
   );
 }

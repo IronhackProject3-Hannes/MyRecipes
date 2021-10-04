@@ -45,19 +45,19 @@ router.get("/:id", (req, res, next) => {
     });
 });
 
-// update recipe
-// router.put("/:id", (req, res, next) => {
-//   const { title, description } = req.body;
-//   Recipe.findByIdAndUpdate(
-//     req.params.id,
-//     { title: title, description: description },
-//     { new: true }
-//   )
-//     .then((updatedProject) => {
-//       res.status(200).json(updatedProject);
-//     })
-//     .catch((err) => next(err));
-// });
+//update recipe
+router.put("/:id", (req, res, next) => {
+  const { strMeal, strTags } = req.body;
+  Recipe.findByIdAndUpdate(
+    req.params.id,
+    { strMeal: strMeal, strTags: strTags },
+    { new: true }
+  )
+    .then((updatedProject) => {
+      res.status(200).json(updatedProject);
+    })
+    .catch((err) => next(err));
+});
 
 // delete a recipe
 router.delete("/:id", (req, res, next) => {
