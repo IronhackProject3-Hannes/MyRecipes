@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { logout } from "../services/auth";
+import homeIcon from "../images/home.png";
 
 export default function Navbar(props) {
   const handleLogout = () => {
@@ -13,24 +14,35 @@ export default function Navbar(props) {
     <nav>
       {props.user ? (
         <>
-          <Link to="/">
-            <button>Home</button>
-          </Link>
-          <Link to="/recipes">
-            <button>Recipes</button>
-          </Link>
-          <Link to="/" onClick={() => handleLogout()}>
-            <button>Logout</button>
-          </Link>
+          <div className="nav-left">
+            <Link to="/">
+              <img className="home-icon" src={homeIcon} alt="home" />
+            </Link>
+          </div>
+          <div className="nav-right">
+            <Link to="/recipes">
+              <button className="nav-btn list">Recipes</button>
+            </Link>
+            <Link to="/" onClick={() => handleLogout()}>
+              <button className="nav-btn logout">Logout</button>
+            </Link>
+          </div>
         </>
       ) : (
         <>
-          <Link to="/signup">
-            <button>Signup</button>
-          </Link>
-          <Link to="/login">
-            <button>Login</button>
-          </Link>
+          <div className="nav-left">
+            <Link to="/">
+              <img className="home-icon" src={homeIcon} alt="home" />
+            </Link>
+          </div>
+          <div className="nav-right">
+            <Link to="/signup">
+              <button className="nav-btn signup">Signup</button>
+            </Link>
+            <Link to="/login">
+              <button className="nav-btn login">Login</button>
+            </Link>
+          </div>
         </>
       )}
     </nav>

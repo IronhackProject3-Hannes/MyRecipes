@@ -2,8 +2,18 @@ import React from "react";
 
 export default function HomePage() {
   return (
-    <div>
-      <h1>Home Page 🦄 🌈</h1>
+    <div className="home-container">
+      <div className="first-row">
+        <div className="first-row-text">
+          <h1>Welcome to MyReS</h1>
+          <h2>My Recipe Scrapbook</h2>
+        </div>
+      </div>
+      <div className="second-row">
+        <div className="second-left"></div>
+        <div className="second-middle"></div>
+        <div className="second-right"></div>
+      </div>
     </div>
   );
 }

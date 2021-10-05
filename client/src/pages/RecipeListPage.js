@@ -27,16 +27,37 @@ export default function RecipeListPage() {
     // on the first render (when the component is mounted)
   }, []);
 
+  //search with name and tags
+  const [search, setSearch] = useState("");
+
+  const filteredRecipe = recipes.filter((recipe) =>
+    `${recipe.strMeal}${recipe.strTags}`
+      .toLowerCase()
+      .includes(search.toLowerCase())
+  );
+
   return (
     <div>
       <h1>All Recipes 📝</h1>
-
-      {recipes.map((recipe) => (
-        <RecipeCard key={recipe._id} {...recipe} />
-      ))}
+      <div>
+        <input
+          type="text"
+          name="search"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+        />
+      </div>
       <Link to="/recipes/add">
         <button>Add recipe</button>
       </Link>
+      {filteredRecipe
+        .sort((a, b) => {
+          return a.strMeal.localeCompare(b.strMeal);
+        })
+        .map((recipe) => (
+          <RecipeCard key={recipe._id} {...recipe} />
+        ))}
+
       {/* <AddRecipe refreshProjects={getAllRecipes} /> */}
     </div>
   );

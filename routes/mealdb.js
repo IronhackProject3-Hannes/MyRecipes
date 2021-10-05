@@ -26,65 +26,107 @@ const axios = require("axios");
 //   });
 // });
 
-router.get("/", (req, res, next) => {
-  axios
-    .get("https://www.themealdb.com/api/json/v1/1/search.php?f=a")
+function getDataFromDB(char) {
+  const dataFromDB = axios
+    .get(`https://www.themealdb.com/api/json/v1/1/search.php?f=${char}`)
     .then((response) => {
       const meals = response.data.meals;
-      meals.forEach((meal) => {
+      let createdMeal = [];
+      if (meals) {
+        meals.forEach((meal) => {
+          const {
+            strMeal,
+            strCategory,
+            strArea,
+            strInstructions,
+            strMealThumb,
+            strTags,
+          } = meal;
+          // make ingredient array from db
+          let Ingredients = [];
+          for (let i = 1; i <= 20; i++) {
+            if (meal[`strIngredient${i}`]) {
+              Ingredients.push({
+                strIngredient: meal[`strIngredient${i}`],
+                strMeasure: meal[`strMeasure${i}`],
+              });
+            }
+          }
+
+          // make recipe array from db
+          let InstructionsArray = strInstructions
+            .toString()
+            .replace(/(\r\n|\n|\r)/gm, "")
+            .split(".");
+          const Instructions = [];
+          for (let i = 0; i < InstructionsArray.length; i++) {
+            if (InstructionsArray[i] !== "") {
+              Instructions.push(InstructionsArray[i].trim());
+            }
+          }
+          createdMeal.push({
+            strMeal,
+            strCategory,
+            strArea,
+            strMealThumb,
+            strTags,
+            Instructions,
+            Ingredients,
+          });
+        });
+        return createdMeal;
+      }
+    })
+    .catch((err) => console.log(err));
+  return dataFromDB;
+}
+
+router.get("/", (req, res, next) => {
+  // const alphabets = "abcdefghijklmnopqrstuvwyz";
+  const alphabets = "a";
+  // for (let el of alphabets) {
+  //   (async function () {
+  //     const data = await getDataFromDB(el);
+  //     console.log(data);
+  //     wholeRecipes.push(data);
+  //   })();
+  // }
+  // let eachRecipes = [];
+  // for (let recipes of wholeRecipes) {
+  //   for (let recipe of recipes) {
+  //     eachRecipes.push(recipe);
+  //   }
+  // }
+  // console.log(eachRecipes);
+  for (let el of alphabets) {
+    let wholeRecipes = [];
+    (async function () {
+      const data = await getDataFromDB(el);
+      wholeRecipes = [...data];
+      for (let recipe of wholeRecipes) {
+        console.log(recipe);
         const {
           strMeal,
           strCategory,
           strArea,
-          strInstructions,
           strMealThumb,
           strTags,
-        } = meal;
-        // make ingredient array from db
-        let Ingredients = [];
-        for (let i = 1; i <= 20; i++) {
-          if (meal[`strIngredient${i}`]) {
-            Ingredients.push({
-              strIngredient: meal[`strIngredient${i}`],
-              strMeasure: meal[`strMeasure${i}`],
-            });
-          }
-        }
-        console.log(Ingredients);
-
-        // make recipe array from db
-        let InstructionsArray = strInstructions
-          .replace(/(\r\n|\n|\r)/gm, "")
-          .split(".");
-        const Instructions = [];
-        for (let i = 0; i < InstructionsArray.length; i++) {
-          if (InstructionsArray[i] !== "") {
-            Instructions.push(InstructionsArray[i].trim());
-          }
-        }
-        console.log(Instructions);
-
-        //create the recipe to db from themealdb
+          Instructions,
+          Ingredients,
+        } = recipe;
         Recipe.create({
           strMeal,
           strCategory,
           strArea,
-          Instructions,
           strMealThumb,
           strTags,
+          Instructions,
           Ingredients,
           creatorId: "theMealdb",
-        })
-          .then((recipe) => {
-            // we return http status code 201 - created
-            res.status(201).json(recipe);
-          })
-          .catch((err) => {
-            next(err);
-          });
-      });
-    })
-    .catch((err) => next(err));
+        });
+      }
+    })();
+  }
 });
 
 module.exports = router;

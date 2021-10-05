@@ -22,8 +22,8 @@ export default function Signup(props) {
           // user is correctly signed up in the backend
           // add the user to the state of App.js
           props.setUser(response);
-          // redirect to the recipes list page
-          props.history.push("/recipes");
+          // redirect to the login page
+          props.history.push("/login");
         }
       })
       .catch((err) => console.log(err));
@@ -31,25 +31,27 @@ export default function Signup(props) {
 
   return (
     <>
-      <h3>Signup</h3>
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="username">Username: </label>
-        <input
-          type="text"
-          name="username"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-        />
-        <label htmlFor="password">Password: </label>
-        <input
-          type="password"
-          name="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <button type="submit">Sign Up ✍️</button>
-        {message && <h3>{message}</h3>}
-      </form>
+      <div className="signup-container">
+        <h3>Create Account</h3>
+        <form onSubmit={handleSubmit}>
+          <label htmlFor="username">Username </label>
+          <input
+            type="text"
+            name="username"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+          />
+          <label htmlFor="password">Password </label>
+          <input
+            type="password"
+            name="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <button type="submit">Sign Up</button>
+          {message && <h3>{message}</h3>}
+        </form>
+      </div>
     </>
   );
 }

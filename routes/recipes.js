@@ -14,9 +14,23 @@ router.get("/", (req, res, next) => {
 // create a recipe
 router.post("/", (req, res, next) => {
   console.log(req.body);
-  const { strMeal, strTags, creatorId } = req.body;
+  const {
+    strMeal,
+    strCategory,
+    strArea,
+    strMealThumb,
+    Ingredients,
+    Instructions,
+    strTags,
+    creatorId,
+  } = req.body;
   Recipe.create({
     strMeal,
+    strCategory,
+    strArea,
+    strMealThumb,
+    Ingredients,
+    Instructions,
     strTags,
     creatorId,
   })
@@ -49,14 +63,30 @@ router.get("/:id", (req, res, next) => {
 
 //update recipe
 router.put("/:id", (req, res, next) => {
-  const { strMeal, strTags } = req.body;
+  const {
+    strMeal,
+    strCategory,
+    strArea,
+    strMealThumb,
+    Ingredients,
+    Instructions,
+    strTags,
+  } = req.body;
   Recipe.findByIdAndUpdate(
     req.params.id,
-    { strMeal: strMeal, strTags: strTags },
+    {
+      strMeal: strMeal,
+      strCategory: strCategory,
+      strArea: strArea,
+      strMealThumb: strMealThumb,
+      Ingredients: Ingredients,
+      Instructions: Instructions,
+      strTags: strTags,
+    },
     { new: true }
   )
-    .then((updatedProject) => {
-      res.status(200).json(updatedProject);
+    .then((updatedRecipe) => {
+      res.status(200).json(updatedRecipe);
     })
     .catch((err) => next(err));
 });
