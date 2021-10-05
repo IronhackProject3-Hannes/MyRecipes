@@ -16,6 +16,15 @@ router.get("/:id", (req, res, next) => {
     .catch((err) => next(err));
 });
 
+router.get("/creator/:id", (req, res, next) => {
+  Recipe.find({ creatorId: req.params.id })
+    .then((recipe) => {
+      console.log(recipe);
+      res.status(200).json(recipe);
+    })
+    .catch((err) => next(err));
+});
+
 router.put("/:id", (req, res, next) => {
   console.log(req.body);
   User.findByIdAndUpdate(

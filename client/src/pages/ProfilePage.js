@@ -8,8 +8,22 @@ export default function Profile(props) {
   const [username, setUsername] = useState(props.user.username);
   const [favorite, setFavorite] = useState(props.user.favorite);
   const [recipes, setRecipes] = useState([]);
+  const [userRecipes, setUserRecipes] = useState([]);
 
-  console.log(favorite);
+  const getCreatedRecipes = () => {
+    axios
+      .get(`${API_URL}/api/user/creator/${userId}`)
+      .then((response) => {
+        console.log(response.data);
+        setUserRecipes(response.data);
+      })
+      .catch((err) => console.log(err));
+  };
+
+  useEffect(() => {
+    getCreatedRecipes();
+  }, []);
+
   const getFavoriteRecipes = () => {
     console.log(props.user);
     const userId = props.user._id;
@@ -73,7 +87,19 @@ export default function Profile(props) {
         <div className="profile-container">
           <div className="profile-left">
             <h3>Your Recipe</h3>
-            {}
+            {userRecipes
+              .sort((a, b) => {
+                return a.strMeal.localeCompare(b.strMeal);
+              })
+              .map((recipe) => (
+                <RecipeCard
+                  key={recipe._id}
+                  user={props.user}
+                  favorite={favorite}
+                  handleFavorite={handleFavorite}
+                  {...recipe}
+                />
+              ))}
           </div>
           <div className="profile-right">
             <h3>User Favorite</h3>
