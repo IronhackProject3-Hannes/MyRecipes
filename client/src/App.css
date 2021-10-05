@@ -230,3 +230,71 @@ nav {
   cursor: pointer;
   background-color: violet;
 }
+
+/* recipe list page */
+.recipes-container {
+  height: 100vh;
+  background-image: url("./images/cookies-served-on-a-vintage-plate-with-flowers-picjumbo-com.jpg");
+  background-size: cover;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.search-box {
+  margin-bottom: 30px;
+}
+
+.search-box > input {
+  width: 400px;
+  height: 30px;
+  border: 0;
+  border-radius: 50px;
+  padding-left: 20px;
+}
+
+.list-title {
+  font-size: 50px;
+  font-weight: 700;
+  -webkit-text-stroke: 2px #f8afa6;
+}
+.cards-box {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+/* recipe card */
+.card-box {
+  display: flex;
+  width: 300px;
+  background-color: #f8afa6;
+  margin: 20px;
+}
+
+.card-box:hover {
+  background-color: #f79489;
+}
+
+.card-left {
+  margin: 10px;
+}
+
+.card-left > img {
+  width: 100px;
+}
+
+.card-title {
+  font-size: 20px;
+  color: inherit;
+  text-decoration: none;
+}
+
+.card-right {
+  padding-top: 10px;
+  margin-left: 10px;
+}
+.card-text {
+  margin-top: 10px;
+  font-size: 12px;
+}

@@ -31,34 +31,37 @@ export default function RecipeListPage() {
   const [search, setSearch] = useState("");
 
   const filteredRecipe = recipes.filter((recipe) =>
-    `${recipe.strMeal}${recipe.strTags}`
+    `${recipe.strMeal}${recipe.strCategory}${recipe.strArea}${recipe.strTags}`
       .toLowerCase()
       .includes(search.toLowerCase())
   );
 
   return (
-    <div>
-      <h1>All Recipes 📝</h1>
-      <div>
+    <div className="recipes-container">
+      <div className="search-box">
         <input
           type="text"
           name="search"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
+          placeholder="Find your Recipe"
         />
       </div>
-      <Link to="/recipes/add">
-        <button>Add recipe</button>
-      </Link>
-      {filteredRecipe
-        .sort((a, b) => {
-          return a.strMeal.localeCompare(b.strMeal);
-        })
-        .map((recipe) => (
-          <RecipeCard key={recipe._id} {...recipe} />
-        ))}
-
-      {/* <AddRecipe refreshProjects={getAllRecipes} /> */}
+      <h1 className="list-title">All Recipes</h1>
+      <div className="add-btn">
+        <Link to="/recipes/add">
+          <button>Add recipe</button>
+        </Link>
+      </div>
+      <div className="cards-box">
+        {filteredRecipe
+          .sort((a, b) => {
+            return a.strMeal.localeCompare(b.strMeal);
+          })
+          .map((recipe) => (
+            <RecipeCard key={recipe._id} {...recipe} />
+          ))}
+      </div>
     </div>
   );
 }
