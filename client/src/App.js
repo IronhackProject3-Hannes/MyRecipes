@@ -7,6 +7,7 @@ import RecipeListPage from "./pages/RecipeListPage";
 import AddRecipePage from "./pages/AddRecipePage";
 import RecipeDetailsPage from "./pages/RecipeDetailsPage";
 import EditRecipePage from "./pages/EditRecipePage";
+import ProfilePage from "./pages/ProfilePage";
 import Signup from "./pages/Signup";
 import Login from "./pages/Login";
 import ProtectedRoute from "./components/ProtectedRoute";
@@ -26,7 +27,18 @@ function App(props) {
       <Switch>
         <Route exact path="/" component={HomePage} />
         {/* not need to protect all recipe */}
-        <Route exact path="/recipes" component={RecipeListPage} />
+        <ProtectedRoute
+          exact
+          path="/profile/:id"
+          user={user}
+          component={ProfilePage}
+          redirect="/login"
+        />
+        <Route
+          exact
+          path="/recipes"
+          render={(props) => <RecipeListPage user={user} {...props} />}
+        />
         {/* <Route
           exact path="/projects"
           render={props => {

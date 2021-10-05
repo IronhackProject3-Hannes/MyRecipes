@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 
 // here we destructure the fields from the props object
 export default function RecipeCard({
+  user,
   strMeal,
   strTags,
   _id,
@@ -9,7 +10,7 @@ export default function RecipeCard({
   strCategory,
   strArea,
 }) {
-  console.log(strMeal);
+  console.log(user);
   return (
     <div className="card-box">
       <div className="card-left">
@@ -23,6 +24,11 @@ export default function RecipeCard({
           <p>
             {strCategory} / {strArea} / {strTags}
           </p>
+          {user.favorite.includes(_id) ? (
+            <i class="fas fa-heart"></i>
+          ) : (
+            <i class="far fa-heart"></i>
+          )}
         </div>
       </div>
     </div>

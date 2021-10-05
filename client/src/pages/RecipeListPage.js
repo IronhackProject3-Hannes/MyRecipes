@@ -3,12 +3,13 @@ import axios from "axios";
 import RecipeCard from "../components/RecipeCard";
 import { Link } from "react-router-dom";
 
-export default function RecipeListPage() {
+export default function RecipeListPage(props) {
   // we don't need this bc we are using the proxy in package.json
   const API_URL = "http://localhost:5005";
 
   const [recipes, setRecipes] = useState([]);
 
+  console.log(props);
   const getAllRecipes = () => {
     // get request to the server
     axios
@@ -59,7 +60,7 @@ export default function RecipeListPage() {
             return a.strMeal.localeCompare(b.strMeal);
           })
           .map((recipe) => (
-            <RecipeCard key={recipe._id} {...recipe} />
+            <RecipeCard key={recipe._id} user={props.user} {...recipe} />
           ))}
       </div>
     </div>
