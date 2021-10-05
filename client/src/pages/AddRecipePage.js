@@ -85,11 +85,12 @@ export default function AddProject(props) {
   };
 
   return (
-    <div>
-      <h3>Add Recipe Form</h3>
+    <div className="add-container">
+      <h3 className="add title">Add Recipe Form</h3>
       <form onSubmit={handleSubmit}>
         <label htmlFor="strMeal">Name: </label>
         <input
+          placeholder="Enter Name"
           type="text"
           name="strMeal"
           value={strMeal}
@@ -97,6 +98,7 @@ export default function AddProject(props) {
         />
         <label htmlFor="strCategory">Category: </label>
         <input
+          placeholder="Enter Category"
           type="text"
           name="strCategory"
           value={strCategory}
@@ -104,6 +106,7 @@ export default function AddProject(props) {
         />
         <label htmlFor="strArea">Area: </label>
         <input
+          placeholder="Enter Area"
           type="text"
           name="strArea"
           value={strArea}
@@ -121,6 +124,7 @@ export default function AddProject(props) {
           return (
             <div className="box" key={i}>
               <input
+                className="ml10"
                 name="strIngredient"
                 placeholder="Enter Ingredient"
                 value={x.strIngredient}
@@ -143,7 +147,9 @@ export default function AddProject(props) {
                   </button>
                 )}
                 {Ingredients.length - 1 === i && (
-                  <button onClick={handleIngredientsAddClick}>Add</button>
+                  <button className="mr10" onClick={handleIngredientsAddClick}>
+                    Add
+                  </button>
                 )}
               </div>
             </div>
@@ -154,6 +160,7 @@ export default function AddProject(props) {
           return (
             <div className="box" key={i}>
               <input
+                className="ml10"
                 name="Instructions"
                 placeholder="Enter Instructions"
                 value={x}
@@ -169,7 +176,9 @@ export default function AddProject(props) {
                   </button>
                 )}
                 {Instructions.length - 1 === i && (
-                  <button onClick={handleInstructionsAddClick}>Add</button>
+                  <button className="mr10" onClick={handleInstructionsAddClick}>
+                    Add
+                  </button>
                 )}
               </div>
             </div>
@@ -182,9 +191,11 @@ export default function AddProject(props) {
           value={strTags}
           onChange={(e) => setStrTags(e.target.value)}
         />
-        <div style={{ marginTop: 20 }}>{JSON.stringify(Ingredients)}</div>
-        <div style={{ marginTop: 20 }}>{JSON.stringify(Instructions)}</div>
-        <button type="submit">Add this recipe ＋</button>
+        {/* <div style={{ marginTop: 20 }}>{JSON.stringify(Ingredients)}</div>
+        <div style={{ marginTop: 20 }}>{JSON.stringify(Instructions)}</div> */}
+        <button className="add-btn" type="submit">
+          Add Recipe <i class="fas fa-plus"></i>{" "}
+        </button>
       </form>
     </div>
   );

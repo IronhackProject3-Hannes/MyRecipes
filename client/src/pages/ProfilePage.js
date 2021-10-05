@@ -6,8 +6,9 @@ export default function Profile(props) {
   const API_URL = "http://localhost:5005";
 
   const [username, setUsername] = useState(props.user.username);
+  const [favoriteIds, setFavoriteIds] = useState(props.user.favorite);
   const [favorite, setFavorite] = useState([]);
-  const [message, setMessage] = useState("");
+  console.log(favoriteIds);
 
   const getFavorite = () => {
     console.log(props.user);
@@ -23,11 +24,7 @@ export default function Profile(props) {
 
   useEffect(() => {
     getFavorite();
-  }, []);
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-  };
+  }, [favoriteIds]);
 
   return (
     <>
@@ -40,13 +37,17 @@ export default function Profile(props) {
         <div className="profile-right">
           <h3>User Favorite</h3>
           <div className="favorite">
-            {favorite
-              .sort((a, b) => {
-                return a.strMeal.localeCompare(b.strMeal);
-              })
-              .map((recipe) => (
-                <RecipeCard key={recipe._id} user={props.user} {...recipe} />
-              ))}
+            {favorite ? (
+              favorite
+                .sort((a, b) => {
+                  return a.strMeal.localeCompare(b.strMeal);
+                })
+                .map((recipe) => (
+                  <RecipeCard key={recipe._id} user={props.user} {...recipe} />
+                ))
+            ) : (
+              <></>
+            )}
           </div>
         </div>
       </div>

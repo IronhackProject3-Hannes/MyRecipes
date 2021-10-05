@@ -27,6 +27,47 @@ export default function RecipeListPage(props) {
     // on the first render (when the component is mounted)
   }, []);
 
+  // handle favorite recipes
+  const [favorite, setFavorite] = useState(props.user.favorite);
+
+  const userId = props.user._id;
+
+  const handleFavorite = (id) => {
+    if (!favorite.includes(id)) {
+      axios
+        .put(`${API_URL}/api/user/${userId}`, {
+          favorite: [...favorite, id],
+        })
+        .then((response) => {
+          setFavorite([...favorite, id]);
+          console.log("add fav:", favorite);
+          console.log("added user:", response.data);
+        })
+        .catch((err) => console.log(err));
+    } else {
+      const filtedIds = favorite.filter((el) => {
+        if (el !== id) {
+          console.log(el);
+          console.log(id);
+          return true;
+        } else {
+          return false;
+        }
+      });
+      console.log(filtedIds);
+      axios
+        .delete(`${API_URL}/api/user/${userId}`, {
+          data: { favorite: [...filtedIds] },
+        })
+        .then((response) => {
+          console.log("thisis res.data:", response.data);
+          setFavorite(response.data.favorite);
+          console.log("this is fav:", favorite);
+        })
+        .catch((err) => console.log(err));
+    }
+  };
+
   //search with name and tags
   const [search, setSearch] = useState("");
 
@@ -59,7 +100,13 @@ export default function RecipeListPage(props) {
             return a.strMeal.localeCompare(b.strMeal);
           })
           .map((recipe) => (
-            <RecipeCard key={recipe._id} user={props.user} {...recipe} />
+            <RecipeCard
+              key={recipe._id}
+              user={props.user}
+              favorite={favorite}
+              handleFavorite={handleFavorite}
+              {...recipe}
+            />
           ))}
       </div>
     </div>

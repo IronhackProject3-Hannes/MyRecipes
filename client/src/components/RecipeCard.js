@@ -3,62 +3,56 @@ import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 
 // here we destructure the fields from the props object
-export default function RecipeCard({
-  user,
-  strMeal,
-  strTags,
-  _id,
-  strMealThumb,
-  strCategory,
-  strArea,
-}) {
-  const [favorite, setFavorite] = useState([]);
-  const [newUser, setNewUser] = useState(user);
+export default function RecipeCard(props) {
+  const [heart, setHeart] = useState(false);
 
-  const API_URL = "http://localhost:5005";
-  const userId = user._id;
-
-  // const handleChange = () => {};
-
-  const getFavorite = () => {
-    setFavorite(user.favorite);
-    setNewUser(user);
-  };
+  // const API_URL = "http://localhost:5005";
+  // const userId = user._id;
 
   useEffect(() => {
-    getFavorite();
-  }, [favorite, user]);
-
-  const handleFavorite = () => {
-    if (!user.favorite.includes(_id)) {
-      axios
-        .put(`${API_URL}/api/user/${userId}`, {
-          favorite: [...user.favorite, _id],
-        })
-        .then((response) => {
-          console.log(response.data);
-        })
-        .catch((err) => console.log(err));
+    if (props.favorite.includes(_id)) {
+      setHeart(true);
     } else {
-      console.log(user.favorite);
-      const filtedIds = user.favorite.filter((id) => {
-        if (id === _id) {
-          console.log(id);
-          return false;
-        } else {
-          return true;
-        }
-      });
-      axios
-        .delete(`${API_URL}/api/user/${userId}`, {
-          data: { favorite: [...filtedIds] },
-        })
-        .then((response) => {
-          console.log(response.data);
-        })
-        .catch((err) => console.log(err));
+      setHeart(false);
     }
-  };
+  }, [props.favorite]);
+
+  // const handleFavorite = () => {
+  //   if (!favorite.includes(_id)) {
+  //     axios
+  //       .put(`${API_URL}/api/user/${userId}`, {
+  //         favorite: [...favorite, _id],
+  //       })
+  //       .then((response) => {
+  //         setFavorite([...favorite, _id]);
+  //         console.log(favorite);
+  //         console.log(response.data);
+  //       })
+  //       .catch((err) => console.log(err));
+  //   } else {
+  //     const filtedIds = user.favorite.filter((id) => {
+  //       if (id == _id) {
+  //         console.log(id);
+  //         return false;
+  //       } else {
+  //         return true;
+  //       }
+  //     });
+  //     console.log(filtedIds);
+  //     axios
+  //       .delete(`${API_URL}/api/user/${userId}`, {
+  //         data: { favorite: [...filtedIds] },
+  //       })
+  //       .then((response) => {
+  //         console.log("thisis res.data:", response.data);
+  //         setFavorite(response.data.favorite);
+  //         console.log("this is fav:", favorite);
+  //       })
+  //       .catch((err) => console.log(err));
+  //   }
+  // };
+
+  const { strMeal, strTags, _id, strMealThumb, strCategory, strArea } = props;
 
   return (
     <div className="card-box">
@@ -73,13 +67,13 @@ export default function RecipeCard({
           <p>
             {strCategory} / {strArea} / {strTags}
           </p>
-          {favorite.includes(_id) ? (
-            <button onClick={handleFavorite}>
-              <i class="fas fa-heart"></i>
+          {heart === true ? (
+            <button onClick={() => props.handleFavorite(_id)}>
+              <i className="fas fa-heart"></i>
             </button>
           ) : (
-            <button onClick={handleFavorite}>
-              <i class="far fa-heart"></i>
+            <button onClick={() => props.handleFavorite(_id)}>
+              <i className="far fa-heart"></i>
             </button>
           )}
         </div>

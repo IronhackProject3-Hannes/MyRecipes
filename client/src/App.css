@@ -370,9 +370,179 @@ nav {
 .instructions {
   display: flex;
   flex-wrap: wrap;
+  margin: 0px 20px 30px 0px;
 }
 
 .instructions > li {
   text-align: start;
   margin: 2px;
+}
+
+.edit-btn {
+  font-size: 20px;
+  font-weight: 700;
+  color: #f9f1f0;
+  background-color: #fec89a;
+  width: 200px;
+  height: 30px;
+  border: 0;
+  border-radius: 20px;
+  margin: 30px 0px;
+}
+
+.edit-btn:hover {
+  background-color: pink;
+  cursor: pointer;
+}
+
+/* add page */
+
+.title {
+  margin: 20px;
+  font-size: 40px;
+}
+
+.add-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.add-container > form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.add-container > form > label {
+  font-size: 20px;
+  margin: 10px;
+  font-weight: 700;
+}
+.add-container > form > input {
+  padding-left: 20px;
+  width: 200px;
+  height: 20px;
+  border: 0;
+  border-radius: 20px;
+}
+
+.box {
+  display: flex;
+}
+
+.ml10 {
+  padding-left: 20px;
+  width: 200px;
+  height: 20px;
+  border: 0;
+  border-radius: 20px;
+  margin: 10px;
+}
+
+.mr10 {
+  background-color: #fec89a;
+  width: 60px;
+  height: 20px;
+  border: 0;
+  border-radius: 20px;
+  margin: 10px 0px;
+}
+
+.mr10:hover {
+  background-color: pink;
+  cursor: pointer;
+}
+
+.add-btn {
+  font-size: 20px;
+  font-weight: 700;
+  color: #f9f1f0;
+  background-color: #fec89a;
+  width: 200px;
+  height: 30px;
+  border: 0;
+  border-radius: 20px;
+  margin: 10px 0px;
+}
+.add-btn:hover {
+  background-color: pink;
+  cursor: pointer;
+}
+
+/* edit page */
+
+.title {
+  margin: 20px;
+  font-size: 40px;
+}
+
+.edit-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.edit-container > form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.edit-container > form > label {
+  font-size: 20px;
+  margin: 10px;
+  font-weight: 700;
+}
+.edit-container > form > input {
+  padding-left: 20px;
+  width: 200px;
+  height: 20px;
+  border: 0;
+  border-radius: 20px;
+}
+
+.box {
+  display: flex;
+}
+
+.ml10 {
+  padding-left: 20px;
+  width: 200px;
+  height: 20px;
+  border: 0;
+  border-radius: 20px;
+  margin: 10px;
+}
+
+.mr10 {
+  background-color: #fec89a;
+  width: 60px;
+  height: 20px;
+  border: 0;
+  border-radius: 20px;
+  margin: 10px 5px;
+}
+
+.mr10:hover {
+  background-color: pink;
+  cursor: pointer;
+}
+
+.update-btn {
+  font-size: 20px;
+  font-weight: 700;
+  color: #f9f1f0;
+  background-color: #fec89a;
+  width: 200px;
+  height: 30px;
+  border: 0;
+  border-radius: 20px;
+  margin: 20px 0px;
+}
+.update-btn:hover {
+  background-color: pink;
+  cursor: pointer;
 }

@@ -46,7 +46,7 @@ export default function ProjectDetailsPage(props) {
                   );
                 })}
               </div>
-              <h4>Ingredients</h4>
+              <h4>instructions</h4>
               <ul className="instructions">
                 {recipe.Instructions.map((el) => {
                   return <li>{el}</li>;
@@ -62,7 +62,7 @@ export default function ProjectDetailsPage(props) {
           ) : (
             props.user.role === "admin" && (
               <Link to={`/recipe/edit/${recipe._id}`}>
-                <button>Edit this recipe</button>
+                <button className="edit-btn">Edit this recipe</button>
               </Link>
             )
           )}

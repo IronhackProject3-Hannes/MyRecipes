@@ -104,8 +104,8 @@ export default function EditProjectPage(props) {
   };
 
   return (
-    <div>
-      <h3>Edit this recipe</h3>
+    <div className="edit-container">
+      <h3 className="title">Edit this recipe</h3>
       <form onSubmit={handleSubmit}>
         <label htmlFor="strMeal">Name: </label>
         <input
@@ -140,6 +140,7 @@ export default function EditProjectPage(props) {
           return (
             <div className="box" key={i}>
               <input
+                className="ml10"
                 name="strIngredient"
                 placeholder="Enter Ingredient"
                 value={x.strIngredient}
@@ -162,7 +163,9 @@ export default function EditProjectPage(props) {
                   </button>
                 )}
                 {Ingredients.length - 1 === i && (
-                  <button onClick={handleIngredientsAddClick}>Add</button>
+                  <button className="mr10" onClick={handleIngredientsAddClick}>
+                    Add
+                  </button>
                 )}
               </div>
             </div>
@@ -173,6 +176,7 @@ export default function EditProjectPage(props) {
           return (
             <div className="box" key={i}>
               <input
+                className="ml10"
                 name="Instructions"
                 placeholder="Enter Instructions"
                 value={x}
@@ -188,7 +192,9 @@ export default function EditProjectPage(props) {
                   </button>
                 )}
                 {Instructions.length - 1 === i && (
-                  <button onClick={handleInstructionsAddClick}>Add</button>
+                  <button className="mr10" onClick={handleInstructionsAddClick}>
+                    Add
+                  </button>
                 )}
               </div>
             </div>
@@ -201,10 +207,14 @@ export default function EditProjectPage(props) {
           value={strTags}
           onChange={(e) => setStrTags(e.target.value)}
         />
-        <button type="submit">Update this recipe</button>
+        <button className="update-btn" type="submit">
+          Update
+        </button>
       </form>
 
-      <button onClick={deleteRecipe}>Delete this recipe 🗑</button>
+      <button className="edit-btn" onClick={deleteRecipe}>
+        Delete This
+      </button>
     </div>
   );
 }
