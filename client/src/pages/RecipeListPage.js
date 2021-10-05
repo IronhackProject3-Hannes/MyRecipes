@@ -9,7 +9,6 @@ export default function RecipeListPage(props) {
 
   const [recipes, setRecipes] = useState([]);
 
-  console.log(props);
   const getAllRecipes = () => {
     // get request to the server
     axios
@@ -22,9 +21,9 @@ export default function RecipeListPage(props) {
   };
 
   useEffect(() => {
-    // get all the projects from the server
+    // get all the recipes from the server
     getAllRecipes();
-    // bc of the empty dependency array we only get all the projects
+    // bc of the empty dependency array we only get all the recipes
     // on the first render (when the component is mounted)
   }, []);
 

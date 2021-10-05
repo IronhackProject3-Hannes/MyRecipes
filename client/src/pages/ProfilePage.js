@@ -5,7 +5,7 @@ import axios from "axios";
 export default function Profile(props) {
   const API_URL = "http://localhost:5005";
 
-  const [username, setUsername] = useState("");
+  const [username, setUsername] = useState(props.user.username);
   const [favorite, setFavorite] = useState([]);
   const [message, setMessage] = useState("");
 
@@ -13,7 +13,7 @@ export default function Profile(props) {
     console.log(props.user);
     const userId = props.user._id;
     axios
-      .get(`${API_URL}/api/profile/${userId}`)
+      .get(`${API_URL}/api/user/${userId}`)
       .then((response) => {
         console.log(response.data);
         setFavorite(response.data);
@@ -35,18 +35,10 @@ export default function Profile(props) {
         <h3>User Profile</h3>
         <div className="profile-left">
           <h3>User Info</h3>
-          <form onSubmit={handleSubmit}>
-            <label htmlFor="username">Username: </label>
-            <input
-              type="text"
-              name="username"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-            />
-            {message && <h3>{message}</h3>}
-          </form>
+          <h3>User Name: {username}</h3>
         </div>
         <div className="profile-right">
+          <h3>User Favorite</h3>
           <div className="favorite">
             {favorite
               .sort((a, b) => {

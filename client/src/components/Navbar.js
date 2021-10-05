@@ -4,8 +4,6 @@ import { logout } from "../services/auth";
 import homeIcon from "../images/home.png";
 
 export default function Navbar(props) {
-  const userId = props.user._id;
-
   const handleLogout = () => {
     logout().then(() => {
       props.setUser(null);
@@ -25,7 +23,7 @@ export default function Navbar(props) {
             <Link to="/recipes">
               <button className="nav-btn list">Recipes</button>
             </Link>
-            <Link to={`/profile/${userId}`}>
+            <Link to={`/profile/${props.user._id}`}>
               <button className="nav-btn profile">Profile</button>
             </Link>
             <Link to="/" onClick={() => handleLogout()}>

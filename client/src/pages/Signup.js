@@ -49,7 +49,7 @@ export default function Signup(props) {
             onChange={(e) => setPassword(e.target.value)}
           />
           <button type="submit">Sign Up</button>
-          {message && <h3>{message}</h3>}
+          {message && <h3 className="message">{message}</h3>}
         </form>
       </div>
     </>

@@ -80,8 +80,8 @@ require("./config")(app);
 const mealdb = require("./routes/mealdb");
 app.use("/api/mealdb", mealdb);
 
-const profile = require("./routes/profile");
-app.use("/api/profile", profile);
+const user = require("./routes/user");
+app.use("/api/user", user);
 
 const recipes = require("./routes/recipes");
 app.use("/api/recipes", recipes);
