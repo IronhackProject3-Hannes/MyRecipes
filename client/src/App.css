@@ -548,6 +548,34 @@ nav {
 }
 
 /* profile page */
+.container > h3 {
+  font-size: 40px;
+  margin: 40px;
+}
+
+.container > h4 {
+  font-size: 20px;
+  margin: 20px;
+}
+
+.container > h5 {
+  font-size: 25px;
+  margin: 20px;
+}
+
 .profile-container {
+  background-color: red;
+  width: 100%;
   display: flex;
+  justify-content: center;
+}
+
+.profile-left {
+  width: 40%;
+  background-color: blue;
+}
+
+.profile-right {
+  width: 40%;
+  background-color: coral;
 }

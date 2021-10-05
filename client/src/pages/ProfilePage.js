@@ -87,19 +87,26 @@ export default function Profile(props) {
         <div className="profile-container">
           <div className="profile-left">
             <h3>Your Recipe</h3>
-            {userRecipes
-              .sort((a, b) => {
-                return a.strMeal.localeCompare(b.strMeal);
-              })
-              .map((recipe) => (
-                <RecipeCard
-                  key={recipe._id}
-                  user={props.user}
-                  favorite={favorite}
-                  handleFavorite={handleFavorite}
-                  {...recipe}
-                />
-              ))}
+            {userRecipes.lenght > 0 ? (
+              userRecipes
+                .sort((a, b) => {
+                  return a.strMeal.localeCompare(b.strMeal);
+                })
+                .map((recipe) => (
+                  <RecipeCard
+                    key={recipe._id}
+                    user={props.user}
+                    favorite={favorite}
+                    handleFavorite={handleFavorite}
+                    {...recipe}
+                  />
+                ))
+            ) : (
+              <>
+                <h1>Add your Recipe</h1>
+                add link to recipes list
+              </>
+            )}
           </div>
           <div className="profile-right">
             <h3>User Favorite</h3>
