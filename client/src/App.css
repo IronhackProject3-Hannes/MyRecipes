@@ -546,3 +546,8 @@ nav {
   background-color: pink;
   cursor: pointer;
 }
+
+/* profile page */
+.profile-container {
+  display: flex;
+}
