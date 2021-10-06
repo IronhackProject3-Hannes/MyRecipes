@@ -29,10 +29,11 @@ export default function Profile(props) {
   }, []);
 
   const getCreatedRecipes = () => {
+    const userId = props.user._id;
     axios
       .get(`${API_URL}/api/user/creator/${userId}`)
       .then((response) => {
-        console.log(response.data);
+        console.log("user created", response.data);
         setUserRecipes(response.data);
       })
       .catch((err) => console.log(err));
@@ -105,7 +106,7 @@ export default function Profile(props) {
         <div className="profile-container">
           <div className="profile-left">
             <h3>Your Recipe</h3>
-            {userRecipes.lenght > 0 ? (
+            {userRecipes.length > 0 ? (
               userRecipes
                 .sort((a, b) => {
                   return a.strMeal.localeCompare(b.strMeal);
