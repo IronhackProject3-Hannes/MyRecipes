@@ -1,11 +1,28 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import RecipeCard from "../components/RecipeCard";
-import { Link } from "react-router-dom";
 
 export default function RecipeListPage(props) {
   // we don't need this bc we are using the proxy in package.json
   const API_URL = "http://localhost:5005";
+
+  const [user, setUser] = useState(props.user);
+
+  const getUser = () => {
+    axios
+      .get("/api/auth/loggedin")
+      .then((response) => {
+        setUser(response.data);
+        setFavorite(response.data.favorite);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  useEffect(() => {
+    getUser();
+  }, []);
 
   const [recipes, setRecipes] = useState([]);
 
@@ -31,6 +48,14 @@ export default function RecipeListPage(props) {
   const [favorite, setFavorite] = useState(props.user.favorite);
 
   const userId = props.user._id;
+
+  const getFavorite = () => {
+    setFavorite(props.user.favorite);
+  };
+
+  useEffect(() => {
+    getFavorite();
+  }, [props.user]);
 
   const handleFavorite = (id) => {
     if (!favorite.includes(id)) {
@@ -89,11 +114,7 @@ export default function RecipeListPage(props) {
         />
       </div>
       <h1 className="list-title">All Recipes</h1>
-      <div className="add-btn">
-        <Link to="/recipes/add">
-          <button>Add recipe</button>
-        </Link>
-      </div>
+
       <div className="cards-box">
         {filteredRecipe
           .sort((a, b) => {

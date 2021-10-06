@@ -1,5 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
+//the service file is used to send (and get) the data to(from) the server
+import service from "../services/image";
 
 export default function AddProject(props) {
   const API_URL = "http://localhost:5005";
@@ -7,7 +9,6 @@ export default function AddProject(props) {
   const [strMeal, setStrMeal] = useState("");
   const [strCategory, setStrCategory] = useState("");
   const [strArea, setStrArea] = useState("");
-  const [strMealThumb, setStrMealThumb] = useState("");
   const [strTags, setStrTags] = useState("");
 
   const [Instructions, setInstructions] = useState([""]);
@@ -55,15 +56,37 @@ export default function AddProject(props) {
     setIngredients([...Ingredients, { strIngredient: "", strMeasure: "" }]);
   };
 
+  const [imageUrl, setImageUrl] = useState("");
+
+  // this upload image to server and retrun url
+  const handleImage = (e) => {
+    e.preventDefault();
+    console.log(e.target.files[0]);
+    const uploadData = new FormData();
+
+    // imageUrl => this name has to be the same as in the model since we pass
+    // req.body to .create() method when creating a new thing in '/api/things/create' POST route
+    uploadData.append("imageUrl", e.target.files[0]);
+
+    service
+      .handleUpload(uploadData)
+      .then((response) => {
+        // console.log("response is: ", response);
+        // after the console.log we can see that response carries 'secure_url' which we can use to update the state
+        setImageUrl(response.secure_url);
+        console.log(imageUrl);
+      })
+      .catch((err) => console.log("Error while uploading the file: ", err));
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-
     // make a post request to the server with the form fields in the body
     const requestBody = {
       strMeal,
       strCategory,
       strArea,
-      strMealThumb,
+      strMealThumb: imageUrl,
       Ingredients,
       Instructions,
       strTags,
@@ -75,7 +98,7 @@ export default function AddProject(props) {
         setStrMeal("");
         setStrCategory("");
         setStrArea("");
-        setStrMealThumb("");
+        setImageUrl("");
         setIngredients([""]);
         setInstructions([{ strIngredient: "", strMeasure: "" }]);
         setStrTags("");
@@ -112,13 +135,9 @@ export default function AddProject(props) {
           value={strArea}
           onChange={(e) => setStrArea(e.target.value)}
         />
-        <label htmlFor="strMealThumb">Image: </label>
-        <input
-          type="text"
-          name="strMealThumb"
-          value={strMealThumb}
-          onChange={(e) => setStrMealThumb(e.target.value)}
-        />
+        <label htmlFor="uploadImage">Image: </label>
+        <input type="file" name="uploadImage" onChange={handleImage} />
+        {imageUrl && <img src={imageUrl} style={{ height: "200px" }} />}
         <label htmlFor="Ingredients">Ingredients: </label>
         {Ingredients.map((x, i) => {
           return (

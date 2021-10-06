@@ -283,6 +283,7 @@ nav {
 /* recipe card */
 .card-box {
   display: flex;
+  justify-content: center;
   width: 300px;
   background-color: #f8afa6;
   margin: 20px;
@@ -307,6 +308,7 @@ nav {
 }
 
 .card-right {
+  position: relative;
   padding-top: 10px;
   margin-left: 10px;
 }
@@ -315,7 +317,21 @@ nav {
   margin-top: 10px;
   font-size: 12px;
 }
+.fav-btn {
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+}
 
+.fav-btn > button {
+  border: 0;
+  background-color: transparent;
+  font-size: 20px;
+}
+
+.fav-btn > button:hover {
+  cursor: pointer;
+}
 /* favorite */
 .fa-heart {
   color: red;

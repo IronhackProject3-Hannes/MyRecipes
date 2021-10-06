@@ -12,6 +12,8 @@ import Signup from "./pages/Signup";
 import Login from "./pages/Login";
 import ProtectedRoute from "./components/ProtectedRoute";
 
+import Image from "./pages/Image";
+
 function App(props) {
   const [user, setUser] = useState(props.user);
 
@@ -26,6 +28,7 @@ function App(props) {
       <Navbar user={user} setUser={addUser} />
       <Switch>
         <Route exact path="/" component={HomePage} />
+        <Route exact path="/image" component={Image} />
         {/* not need to protect all recipe */}
         <ProtectedRoute
           exact
@@ -60,10 +63,8 @@ function App(props) {
           path="/recipes/add"
           user={user}
           component={AddRecipePage}
-          redirect="/recipes"
+          redirect="/login"
         />
-
-        {/* <Route exact path="/projects/:id" component={ProjectDetailsPage} /> */}
         <ProtectedRoute
           exact
           path="/recipe/:id"

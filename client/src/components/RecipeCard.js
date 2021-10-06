@@ -67,15 +67,17 @@ export default function RecipeCard(props) {
           <p>
             {strCategory} / {strArea} / {strTags}
           </p>
-          {heart === true ? (
-            <button onClick={() => props.handleFavorite(_id)}>
-              <i className="fas fa-heart"></i>
-            </button>
-          ) : (
-            <button onClick={() => props.handleFavorite(_id)}>
-              <i className="far fa-heart"></i>
-            </button>
-          )}
+          <div className="fav-btn">
+            {heart === true ? (
+              <button onClick={() => props.handleFavorite(_id)}>
+                <i className="fas fa-heart"></i>
+              </button>
+            ) : (
+              <button onClick={() => props.handleFavorite(_id)}>
+                <i className="far fa-heart"></i>
+              </button>
+            )}
+          </div>
         </div>
       </div>
     </div>

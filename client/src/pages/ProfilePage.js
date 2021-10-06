@@ -1,14 +1,32 @@
 import { useState, useEffect } from "react";
 import RecipeCard from "../components/RecipeCard";
+import { Link } from "react-router-dom";
 import axios from "axios";
 
 export default function Profile(props) {
   const API_URL = "http://localhost:5005";
 
+  const [user, setUser] = useState(props.user);
   const [username, setUsername] = useState(props.user.username);
   const [favorite, setFavorite] = useState(props.user.favorite);
   const [recipes, setRecipes] = useState([]);
   const [userRecipes, setUserRecipes] = useState([]);
+
+  const getUser = () => {
+    axios
+      .get("/api/auth/loggedin")
+      .then((response) => {
+        setUser(response.data);
+        setFavorite(response.data.favorite);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  useEffect(() => {
+    getUser();
+  }, []);
 
   const getCreatedRecipes = () => {
     axios
@@ -38,7 +56,7 @@ export default function Profile(props) {
 
   useEffect(() => {
     getFavoriteRecipes();
-  }, [favorite]);
+  }, [props.user]);
 
   const userId = props.user._id;
 
@@ -104,9 +122,13 @@ export default function Profile(props) {
             ) : (
               <>
                 <h1>Add your Recipe</h1>
-                add link to recipes list
               </>
             )}
+            <div>
+              <Link to="/recipes/add">
+                <button className="add-btn">Add recipe</button>
+              </Link>
+            </div>
           </div>
           <div className="profile-right">
             <h3>User Favorite</h3>
