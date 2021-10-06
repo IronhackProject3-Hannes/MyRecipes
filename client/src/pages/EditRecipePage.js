@@ -1,5 +1,7 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
+//the service file is used to send (and get) the data to(from) the server
+import service from "../services/image";
 
 export default function EditProjectPage(props) {
   const API_URL = "http://localhost:5005";
@@ -7,8 +9,8 @@ export default function EditProjectPage(props) {
   const [strMeal, setStrMeal] = useState("");
   const [strCategory, setStrCategory] = useState("");
   const [strArea, setStrArea] = useState("");
-  const [strMealThumb, setStrMealThumb] = useState("");
   const [strTags, setStrTags] = useState("");
+  const [imageUrl, setImageUrl] = useState("");
 
   const [Instructions, setInstructions] = useState([""]);
 
@@ -65,7 +67,7 @@ export default function EditProjectPage(props) {
         setStrMeal(response.data.strMeal);
         setStrCategory(response.data.strCategory);
         setStrArea(response.data.strArea);
-        setStrMealThumb(response.data.strMealThumb);
+        setImageUrl(response.data.strMealThumb);
         setStrTags(response.data.strTags);
         setInstructions(response.data.Instructions);
         setIngredients(response.data.Ingredients);
@@ -83,13 +85,34 @@ export default function EditProjectPage(props) {
       .catch((err) => console.log(err));
   };
 
+  // this upload image to server and retrun url
+  const handleImage = (e) => {
+    e.preventDefault();
+    console.log(e.target.files[0]);
+    const uploadData = new FormData();
+
+    // imageUrl => this name has to be the same as in the model since we pass
+    // req.body to .create() method when creating a new thing in '/api/things/create' POST route
+    uploadData.append("imageUrl", e.target.files[0]);
+
+    service
+      .handleUpload(uploadData)
+      .then((response) => {
+        // console.log("response is: ", response);
+        // after the console.log we can see that response carries 'secure_url' which we can use to update the state
+        setImageUrl(response.secure_url);
+        console.log(imageUrl);
+      })
+      .catch((err) => console.log("Error while uploading the file: ", err));
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const requestBody = {
       strMeal,
       strCategory,
       strArea,
-      strMealThumb,
+      strMealThumb: imageUrl,
       Ingredients,
       Instructions,
       strTags,
@@ -129,12 +152,9 @@ export default function EditProjectPage(props) {
           onChange={(e) => setStrArea(e.target.value)}
         />
         <label htmlFor="strMealThumb">Image: </label>
-        <input
-          type="text"
-          name="strMealThumb"
-          value={strMealThumb}
-          onChange={(e) => setStrMealThumb(e.target.value)}
-        />
+        <label htmlFor="uploadImage">Image: </label>
+        <input type="file" name="uploadImage" onChange={handleImage} />
+        {imageUrl && <img src={imageUrl} style={{ height: "200px" }} />}
         <label htmlFor="Ingredients">Ingredients: </label>
         {Ingredients.map((x, i) => {
           return (

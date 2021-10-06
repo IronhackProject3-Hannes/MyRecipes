@@ -57,7 +57,7 @@ export default function ProjectDetailsPage(props) {
 
           {props.user._id === recipe.creatorId ? (
             <Link to={`/recipe/edit/${recipe._id}`}>
-              <button>Edit this recipe</button>
+              <button className="edit-btn">Edit this recipe</button>
             </Link>
           ) : (
             props.user.role === "admin" && (
