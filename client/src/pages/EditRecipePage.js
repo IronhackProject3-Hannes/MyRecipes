@@ -130,111 +130,174 @@ export default function EditProjectPage(props) {
     <div className="edit-container">
       <h3 className="title">Edit this recipe</h3>
       <form onSubmit={handleSubmit}>
-        <label htmlFor="strMeal">Name: </label>
-        <input
-          type="text"
-          name="strMeal"
-          value={strMeal}
-          onChange={(e) => setStrMeal(e.target.value)}
-        />
-        <label htmlFor="strCategory">Category: </label>
-        <input
-          type="text"
-          name="strCategory"
-          value={strCategory}
-          onChange={(e) => setStrCategory(e.target.value)}
-        />
-        <label htmlFor="strArea">Area: </label>
-        <input
-          type="text"
-          name="strArea"
-          value={strArea}
-          onChange={(e) => setStrArea(e.target.value)}
-        />
-        <label htmlFor="strMealThumb">Image: </label>
-        <label htmlFor="uploadImage">Image: </label>
-        <input type="file" name="uploadImage" onChange={handleImage} />
-        {imageUrl && <img src={imageUrl} style={{ height: "200px" }} />}
-        <label htmlFor="Ingredients">Ingredients: </label>
-        {Ingredients.map((x, i) => {
-          return (
-            <div className="box" key={i}>
+        <table>
+          <tr className="add-row">
+            <td className="row-left">
+              <label htmlFor="strMeal">Name: </label>
+            </td>
+            <td className="row-right">
+              {" "}
               <input
-                className="ml10"
-                name="strIngredient"
-                placeholder="Enter Ingredient"
-                value={x.strIngredient}
-                onChange={(e) => handleIngredientsChange(e, i)}
+                placeholder="Enter Name"
+                type="text"
+                name="strMeal"
+                value={strMeal}
+                onChange={(e) => setStrMeal(e.target.value)}
               />
+            </td>
+          </tr>
+          <tr className="add-row">
+            <td className="row-left">
+              <label htmlFor="strCategory">Category: </label>
+            </td>
+            <td className="row-right">
               <input
-                className="ml10"
-                name="strMeasure"
-                placeholder="Enter amount"
-                value={x.strMeasure}
-                onChange={(e) => handleIngredientsChange(e, i)}
+                placeholder="Enter Category"
+                type="text"
+                name="strCategory"
+                value={strCategory}
+                onChange={(e) => setStrCategory(e.target.value)}
               />
-              <div className="btn-box">
-                {Ingredients.length !== 1 && (
-                  <button
-                    className="mr10"
-                    onClick={() => handleIngredientsRemoveClick(i)}
-                  >
-                    Remove
-                  </button>
-                )}
-                {Ingredients.length - 1 === i && (
-                  <button className="mr10" onClick={handleIngredientsAddClick}>
-                    Add
-                  </button>
-                )}
-              </div>
-            </div>
-          );
-        })}
-        <label htmlFor="Instructions">Instructions: </label>
-        {Instructions.map((x, i) => {
-          return (
-            <div className="box" key={i}>
+            </td>
+          </tr>
+          <tr className="add-row">
+            <td className="row-left">
+              <label htmlFor="strArea">Area: </label>
+            </td>
+            <td className="row-right">
               <input
-                className="ml10"
-                name="Instructions"
-                placeholder="Enter Instructions"
-                value={x}
-                onChange={(e) => handleInstructionsChange(e, i)}
+                placeholder="Enter Area"
+                type="text"
+                name="strArea"
+                value={strArea}
+                onChange={(e) => setStrArea(e.target.value)}
               />
-              <div className="btn-box">
-                {Instructions.length !== 1 && (
-                  <button
-                    className="mr10"
-                    onClick={() => handleInstructionsRemoveClick(i)}
-                  >
-                    Remove
-                  </button>
-                )}
-                {Instructions.length - 1 === i && (
-                  <button className="mr10" onClick={handleInstructionsAddClick}>
-                    Add
-                  </button>
-                )}
-              </div>
-            </div>
-          );
-        })}
-        <label htmlFor="strTags">Tags: </label>
-        <input
-          type="text"
-          name="strTags"
-          value={strTags}
-          onChange={(e) => setStrTags(e.target.value)}
-        />
-        <button className="update-btn" type="submit">
-          Update
-        </button>
-      </form>
+            </td>
+          </tr>
+          <tr className="add-row">
+            <td className="row-left">
+              <label htmlFor="uploadImage">Image: </label>
+            </td>
+            <td className="row-right">
+              {" "}
+              <input type="file" name="uploadImage" onChange={handleImage} />
+            </td>
+          </tr>
+          <tr className="add-row">
+            <td className="row-left">Image Preview</td>
+            <td className="row-right image-preview">
+              {" "}
+              {imageUrl && <img src={imageUrl} style={{ height: "100px" }} />}
+            </td>
+          </tr>
+          <tr className="add-row">
+            <td className="row-left add-text">
+              <label htmlFor="Ingredients">Ingredients: </label>
+            </td>
+            <td className="row-right add-box">
+              {Ingredients.map((x, i) => {
+                return (
+                  <div className="box" key={i}>
+                    <input
+                      name="strIngredient"
+                      placeholder="Enter Ingredient"
+                      value={x.strIngredient}
+                      onChange={(e) => handleIngredientsChange(e, i)}
+                    />
+                    <input
+                      name="strMeasure"
+                      placeholder="Enter amount"
+                      value={x.strMeasure}
+                      onChange={(e) => handleIngredientsChange(e, i)}
+                    />
+                    <div className="btn-box">
+                      {Ingredients.length !== 1 && (
+                        <button
+                          className="mr10"
+                          onClick={() => handleIngredientsRemoveClick(i)}
+                        >
+                          Remove
+                        </button>
+                      )}
+                      {Ingredients.length - 1 === i && (
+                        <button
+                          className="mr10"
+                          onClick={handleIngredientsAddClick}
+                        >
+                          Add
+                        </button>
+                      )}
+                    </div>
+                  </div>
+                );
+              })}
+            </td>
+          </tr>
 
-      <button className="edit-btn" onClick={deleteRecipe}>
-        Delete This
-      </button>
+          <tr className="add-row">
+            <td className="row-left add-text">
+              <label htmlFor="Instructions">Instructions: </label>
+            </td>
+            <td className="row-right add-box">
+              {Instructions.map((x, i) => {
+                return (
+                  <div className="box" key={i}>
+                    <input
+                      name="Instructions"
+                      placeholder="Enter Instructions"
+                      value={x}
+                      onChange={(e) => handleInstructionsChange(e, i)}
+                    />
+                    <div className="btn-box">
+                      {Instructions.length !== 1 && (
+                        <button
+                          className="mr10"
+                          onClick={() => handleInstructionsRemoveClick(i)}
+                        >
+                          Remove
+                        </button>
+                      )}
+                      {Instructions.length - 1 === i && (
+                        <button
+                          className="mr10"
+                          onClick={handleInstructionsAddClick}
+                        >
+                          Add
+                        </button>
+                      )}
+                    </div>
+                  </div>
+                );
+              })}
+            </td>
+          </tr>
+          <tr className="add-row">
+            <td className="row-left">
+              <label htmlFor="strTags">Tags: </label>
+            </td>
+            <td className="row-right">
+              {" "}
+              <input
+                type="text"
+                name="strTags"
+                placeholder="Enter Tags"
+                value={strTags}
+                onChange={(e) => setStrTags(e.target.value)}
+              />
+            </td>
+          </tr>
+          <tr>
+            <button className="update-btn" type="submit">
+              Update
+            </button>
+          </tr>
+          <tr>
+            <button className="edit-btn" onClick={deleteRecipe}>
+              Delete This
+            </button>
+          </tr>
+        </table>
+      </form>
     </div>
   );
 }

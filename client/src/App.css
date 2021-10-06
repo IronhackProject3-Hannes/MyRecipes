@@ -12,9 +12,9 @@ body {
 }
 
 .App {
-  height: 100vh;
   width: 100%;
   margin-top: 70px;
+  margin-bottom: 20px;
   display: block;
   align-items: center;
   text-align: center;
@@ -79,7 +79,7 @@ nav {
   background-repeat: no-repeat;
   background-size: cover;
   position: relative;
-  margin-bottom: 30px;
+  margin-bottom: 60px;
 }
 
 .first-row-text {
@@ -287,6 +287,7 @@ nav {
   width: 300px;
   background-color: #f8afa6;
   margin: 20px;
+  border-radius: 10px;
 }
 
 .card-box:hover {
@@ -310,7 +311,7 @@ nav {
 .card-right {
   position: relative;
   padding-top: 10px;
-  margin-left: 10px;
+  margin: 0px 10px;
 }
 .card-text {
   color: gray;
@@ -424,19 +425,39 @@ nav {
   justify-content: center;
   align-items: center;
 }
+
 .add-container > form {
+  padding: 40px;
+  background-color: #a49393;
+  width: 90%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 
-.add-container > form > label {
-  font-size: 20px;
-  margin: 10px;
-  font-weight: 700;
+.add-row {
+  display: flex;
+  margin-bottom: 5px;
 }
-.add-container > form > input {
+
+.row-left {
+  display: flex;
+  justify-content: end;
+  width: 150px;
+  font-size: 20px;
+  font-weight: 700;
+  margin: 5px;
+}
+
+.row-right {
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  padding-left: 20px;
+}
+
+.row-right > input {
   padding-left: 20px;
   width: 200px;
   height: 20px;
@@ -446,15 +467,27 @@ nav {
 
 .box {
   display: flex;
+  align-items: center;
+  justify-content: start;
 }
 
-.ml10 {
+.box > input {
   padding-left: 20px;
   width: 200px;
   height: 20px;
   border: 0;
   border-radius: 20px;
-  margin: 10px;
+  margin-right: 10px;
+}
+
+.add-text {
+  margin-top: 10px;
+}
+
+.add-box {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 }
 
 .mr10 {
@@ -487,6 +520,10 @@ nav {
   cursor: pointer;
 }
 
+.image-preview {
+  width: 100px;
+  height: 100px;
+}
 /* edit page */
 
 .title {
@@ -501,10 +538,13 @@ nav {
   align-items: center;
 }
 .edit-container > form {
+  padding: 30px;
+  width: 90%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  background-color: #a49393;
 }
 
 .edit-container > form > label {
@@ -518,33 +558,6 @@ nav {
   height: 20px;
   border: 0;
   border-radius: 20px;
-}
-
-.box {
-  display: flex;
-}
-
-.ml10 {
-  padding-left: 20px;
-  width: 200px;
-  height: 20px;
-  border: 0;
-  border-radius: 20px;
-  margin: 10px;
-}
-
-.mr10 {
-  background-color: #fec89a;
-  width: 60px;
-  height: 20px;
-  border: 0;
-  border-radius: 20px;
-  margin: 10px 5px;
-}
-
-.mr10:hover {
-  background-color: pink;
-  cursor: pointer;
 }
 
 .update-btn {
@@ -566,32 +579,51 @@ nav {
 /* profile page */
 .container > h3 {
   font-size: 40px;
-  margin: 40px;
+  margin: 20px;
 }
 
 .container > h4 {
   font-size: 20px;
-  margin: 20px;
+  margin: 10px;
 }
 
 .container > h5 {
   font-size: 25px;
-  margin: 20px;
+  margin: 10px 0px 30px 0px;
 }
 
 .profile-container {
-  background-color: red;
   width: 100%;
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
 }
 
 .profile-left {
   width: 40%;
-  background-color: blue;
+  min-width: 340px;
+  background-color: #e8e8e4;
+  border-radius: 10px;
+}
+
+.profile-left > h3 {
+  font-size: 40px;
+  padding: 5px;
+  background-color: #ccd5ae;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
 }
 
 .profile-right {
   width: 40%;
-  background-color: coral;
+  min-width: 340px;
+  background-color: #faedcd;
+  border-radius: 10px;
+}
+
+.profile-right > h3 {
+  font-size: 40px;
+  padding: 5px;
+  background-color: #d4a373;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
 }
