@@ -4,7 +4,6 @@ import RecipeCard from "../components/RecipeCard";
 
 export default function RecipeListPage(props) {
   // we don't need this bc we are using the proxy in package.json
-  const API_URL = "http://localhost:5005";
 
   const [user, setUser] = useState(props.user);
 
@@ -29,7 +28,7 @@ export default function RecipeListPage(props) {
   const getAllRecipes = () => {
     // get request to the server
     axios
-      .get(`${API_URL}/api/recipes`)
+      .get(`/api/recipes`)
       .then((response) => {
         console.log(response);
         setRecipes(response.data);
@@ -60,7 +59,7 @@ export default function RecipeListPage(props) {
   const handleFavorite = (id) => {
     if (!favorite.includes(id)) {
       axios
-        .put(`${API_URL}/api/user/${userId}`, {
+        .put(`/api/user/${userId}`, {
           favorite: [...favorite, id],
         })
         .then((response) => {
@@ -81,7 +80,7 @@ export default function RecipeListPage(props) {
       });
       console.log(filtedIds);
       axios
-        .delete(`${API_URL}/api/user/${userId}`, {
+        .delete(`/api/user/${userId}`, {
           data: { favorite: [...filtedIds] },
         })
         .then((response) => {

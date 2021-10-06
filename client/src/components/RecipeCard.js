@@ -6,7 +6,7 @@ import { useState, useEffect } from "react";
 export default function RecipeCard(props) {
   const [heart, setHeart] = useState(false);
 
-  // const API_URL = "http://localhost:5005";
+  //
   // const userId = user._id;
 
   useEffect(() => {
@@ -16,41 +16,6 @@ export default function RecipeCard(props) {
       setHeart(false);
     }
   }, [props.favorite]);
-
-  // const handleFavorite = () => {
-  //   if (!favorite.includes(_id)) {
-  //     axios
-  //       .put(`${API_URL}/api/user/${userId}`, {
-  //         favorite: [...favorite, _id],
-  //       })
-  //       .then((response) => {
-  //         setFavorite([...favorite, _id]);
-  //         console.log(favorite);
-  //         console.log(response.data);
-  //       })
-  //       .catch((err) => console.log(err));
-  //   } else {
-  //     const filtedIds = user.favorite.filter((id) => {
-  //       if (id == _id) {
-  //         console.log(id);
-  //         return false;
-  //       } else {
-  //         return true;
-  //       }
-  //     });
-  //     console.log(filtedIds);
-  //     axios
-  //       .delete(`${API_URL}/api/user/${userId}`, {
-  //         data: { favorite: [...filtedIds] },
-  //       })
-  //       .then((response) => {
-  //         console.log("thisis res.data:", response.data);
-  //         setFavorite(response.data.favorite);
-  //         console.log("this is fav:", favorite);
-  //       })
-  //       .catch((err) => console.log(err));
-  //   }
-  // };
 
   const { strMeal, strTags, _id, strMealThumb, strCategory, strArea } = props;
 

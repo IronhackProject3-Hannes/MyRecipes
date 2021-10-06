@@ -4,8 +4,6 @@ import { useState, useEffect } from "react";
 import service from "../services/image";
 
 export default function EditProjectPage(props) {
-  const API_URL = "http://localhost:5005";
-
   const [strMeal, setStrMeal] = useState("");
   const [strCategory, setStrCategory] = useState("");
   const [strArea, setStrArea] = useState("");
@@ -62,7 +60,7 @@ export default function EditProjectPage(props) {
 
   useEffect(() => {
     axios
-      .get(`${API_URL}/api/recipes/${recipeId}`)
+      .get(`/api/recipes/${recipeId}`)
       .then((response) => {
         setStrMeal(response.data.strMeal);
         setStrCategory(response.data.strCategory);
@@ -77,7 +75,7 @@ export default function EditProjectPage(props) {
 
   const deleteRecipe = () => {
     axios
-      .delete(`${API_URL}/api/recipes/${recipeId}`)
+      .delete(`/api/recipes/${recipeId}`)
       .then(() => {
         // redirect to the project list
         props.history.push("/recipes");
@@ -118,7 +116,7 @@ export default function EditProjectPage(props) {
       strTags,
     };
     axios
-      .put(`${API_URL}/api/recipes/${recipeId}`, requestBody)
+      .put(`/api/recipes/${recipeId}`, requestBody)
       .then((response) => {
         // this is a redirect using react router dom
         props.history.push(`/recipe/${recipeId}`);

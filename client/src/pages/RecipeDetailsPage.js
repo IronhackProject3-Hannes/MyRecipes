@@ -3,15 +3,13 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 
 export default function ProjectDetailsPage(props) {
-  const API_URL = "http://localhost:5005";
-
   const [recipe, setRecipe] = useState(null);
 
   const recipeId = props.match.params.id;
 
   const getRecipe = () => {
     axios
-      .get(`${API_URL}/api/recipes/${recipeId}`)
+      .get(`/api/recipes/${recipeId}`)
       .then((response) => {
         console.log(response.data);
         setRecipe(response.data);

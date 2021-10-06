@@ -4,8 +4,6 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 
 export default function Profile(props) {
-  const API_URL = "http://localhost:5005";
-
   const [user, setUser] = useState(props.user);
   const [username, setUsername] = useState(props.user.username);
   const [favorite, setFavorite] = useState(props.user.favorite);
@@ -31,7 +29,7 @@ export default function Profile(props) {
   const getCreatedRecipes = () => {
     const userId = props.user._id;
     axios
-      .get(`${API_URL}/api/user/creator/${userId}`)
+      .get(`/api/user/creator/${userId}`)
       .then((response) => {
         console.log("user created", response.data);
         setUserRecipes(response.data);
@@ -47,7 +45,7 @@ export default function Profile(props) {
     console.log(props.user);
     const userId = props.user._id;
     axios
-      .get(`${API_URL}/api/user/${userId}`)
+      .get(`/api/user/${userId}`)
       .then((response) => {
         console.log(response.data);
         setRecipes(response.data);
@@ -64,7 +62,7 @@ export default function Profile(props) {
   const handleFavorite = (id) => {
     if (!favorite.includes(id)) {
       axios
-        .put(`${API_URL}/api/user/${userId}`, {
+        .put(`/api/user/${userId}`, {
           favorite: [...favorite, id],
         })
         .then((response) => {
@@ -85,7 +83,7 @@ export default function Profile(props) {
       });
       console.log(filtedIds);
       axios
-        .delete(`${API_URL}/api/user/${userId}`, {
+        .delete(`/api/user/${userId}`, {
           data: { favorite: [...filtedIds] },
         })
         .then((response) => {

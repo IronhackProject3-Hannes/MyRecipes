@@ -4,8 +4,6 @@ import axios from "axios";
 import service from "../services/image";
 
 export default function AddProject(props) {
-  const API_URL = "http://localhost:5005";
-
   const [strMeal, setStrMeal] = useState("");
   const [strCategory, setStrCategory] = useState("");
   const [strArea, setStrArea] = useState("");
@@ -93,7 +91,7 @@ export default function AddProject(props) {
       creatorId: props.user._id,
     };
     axios
-      .post(`${API_URL}/api/recipes`, requestBody)
+      .post(`/api/recipes`, requestBody)
       .then((response) => {
         setStrMeal("");
         setStrCategory("");
