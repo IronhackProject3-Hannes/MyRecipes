@@ -19,15 +19,7 @@ const handleUpload = (file) => {
     .catch(errorHandler);
 };
 
-const saveNewMovie = (newMovie) => {
-  return service
-    .post("/movies/create", newMovie)
-    .then((res) => res.data)
-    .catch(errorHandler);
-};
-
 export default {
   service,
   handleUpload,
-  saveNewMovie,
 };
