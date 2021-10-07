@@ -5,6 +5,7 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter as Router } from "react-router-dom";
 import axios from "axios";
+import Footer from "./components/Footer";
 
 // get the logged in user from the backend and pass it to App.js
 axios.get("/api/auth/loggedin").then((response) => {
@@ -13,6 +14,7 @@ axios.get("/api/auth/loggedin").then((response) => {
   ReactDOM.render(
     <Router>
       <App user={user} />
+      <Footer />
     </Router>,
     document.getElementById("root")
   );

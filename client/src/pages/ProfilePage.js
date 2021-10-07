@@ -104,25 +104,28 @@ export default function Profile(props) {
         <div className="profile-container">
           <div className="profile-left">
             <h3>Your Recipe</h3>
-            {userRecipes.length > 0 ? (
-              userRecipes
-                .sort((a, b) => {
-                  return a.strMeal.localeCompare(b.strMeal);
-                })
-                .map((recipe) => (
-                  <RecipeCard
-                    key={recipe._id}
-                    user={props.user}
-                    favorite={favorite}
-                    handleFavorite={handleFavorite}
-                    {...recipe}
-                  />
-                ))
-            ) : (
-              <>
-                <h1>Add your Recipe</h1>
-              </>
-            )}
+            <div className="profile-recipes">
+              {userRecipes.length > 0 ? (
+                userRecipes
+                  .sort((a, b) => {
+                    return a.strMeal.localeCompare(b.strMeal);
+                  })
+                  .map((recipe) => (
+                    <RecipeCard
+                      key={recipe._id}
+                      user={props.user}
+                      favorite={favorite}
+                      handleFavorite={handleFavorite}
+                      {...recipe}
+                    />
+                  ))
+              ) : (
+                <>
+                  <h1>Add your Recipe</h1>
+                </>
+              )}
+            </div>
+
             <div>
               <Link to="/recipes/add">
                 <button className="add-btn">Add recipe</button>
@@ -149,7 +152,9 @@ export default function Profile(props) {
               ) : (
                 <>
                   <h1>Add your Favorites</h1>
-                  add link to recipes list
+                  <Link to="/recipes">
+                    <button className="add-btn">Go to recipes</button>
+                  </Link>
                 </>
               )}
             </div>

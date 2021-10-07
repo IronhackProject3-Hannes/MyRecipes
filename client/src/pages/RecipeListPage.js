@@ -6,6 +6,13 @@ export default function RecipeListPage(props) {
   // we don't need this bc we are using the proxy in package.json
 
   const [user, setUser] = useState(props.user);
+  const [recipes, setRecipes] = useState([]);
+  const [favorite, setFavorite] = useState(props.user.favorite);
+  const [thisItems, setThisItems] = useState([]);
+  const [thisPage, setThisPage] = useState(1);
+  const [pages, setPages] = useState([]);
+
+  const userId = props.user._id;
 
   const getUser = () => {
     axios
@@ -23,8 +30,7 @@ export default function RecipeListPage(props) {
     getUser();
   }, []);
 
-  const [recipes, setRecipes] = useState([]);
-
+  //get all recipes <= functions
   const getAllRecipes = () => {
     // get request to the server
     axios
@@ -43,11 +49,7 @@ export default function RecipeListPage(props) {
     // on the first render (when the component is mounted)
   }, []);
 
-  // handle favorite recipes
-  const [favorite, setFavorite] = useState(props.user.favorite);
-
-  const userId = props.user._id;
-
+  // handle favorite recipes <= functions
   const getFavorite = () => {
     setFavorite(props.user.favorite);
   };
@@ -92,14 +94,60 @@ export default function RecipeListPage(props) {
     }
   };
 
-  //search with name and tags
+  //search with name, category, area and tags
   const [search, setSearch] = useState("");
 
-  const filteredRecipe = recipes.filter((recipe) =>
-    `${recipe.strMeal}${recipe.strCategory}${recipe.strArea}${recipe.strTags}`
-      .toLowerCase()
-      .includes(search.toLowerCase())
-  );
+  const filteredRecipe = () => {
+    console.log(search);
+    return recipes
+      .sort((a, b) => {
+        return a.strMeal.localeCompare(b.strMeal);
+      })
+      .filter((recipe) =>
+        `${recipe.strMeal}${recipe.strCategory}${recipe.strArea}${recipe.strTags}`
+          .toLowerCase()
+          .includes(search.toLowerCase())
+      );
+  };
+
+  useEffect(() => {
+    filteredRecipe();
+  }, [search]);
+
+  // only 20 items in one page
+  const handleItems = () => {
+    if (filteredRecipe().length > 20) {
+      console.log(filteredRecipe());
+      setThisItems(
+        filteredRecipe().slice((thisPage - 1) * 20, (thisPage - 1) * 20 + 20)
+      );
+    } else {
+      setThisItems(filteredRecipe());
+    }
+  };
+
+  const getPages = () => {
+    if (filteredRecipe().length > 20) {
+      const totalPages = Math.floor(filteredRecipe().length / 20) + 1;
+      const pagesArr = [];
+      for (let i = 1; i <= totalPages; i++) {
+        pagesArr.push(i);
+      }
+      setPages(pagesArr);
+      console.log(pages);
+    } else {
+      setPages([1]);
+    }
+  };
+
+  const handleThisPage = (e) => {
+    setThisPage(e.target.value);
+  };
+
+  useEffect(() => {
+    handleItems();
+    getPages();
+  }, [thisPage, recipes, search]);
 
   return (
     <div className="recipes-container">
@@ -113,9 +161,32 @@ export default function RecipeListPage(props) {
         />
       </div>
       <h1 className="list-title">All Recipes</h1>
-
+      <div className="pages">
+        {pages.map((page) => {
+          return (
+            <>
+              {page === pages.length ? (
+                <>
+                  {" "}
+                  <button onClick={handleThisPage} value={page}>
+                    {page}
+                  </button>{" "}
+                </>
+              ) : (
+                <>
+                  {" "}
+                  <button onClick={handleThisPage} value={page}>
+                    {page}
+                  </button>
+                  <span>/</span>
+                </>
+              )}
+            </>
+          );
+        })}
+      </div>
       <div className="cards-box">
-        {filteredRecipe
+        {thisItems
           .sort((a, b) => {
             return a.strMeal.localeCompare(b.strMeal);
           })

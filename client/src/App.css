@@ -14,7 +14,7 @@ body {
 .App {
   width: 100%;
   margin-top: 70px;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
   display: block;
   align-items: center;
   text-align: center;
@@ -66,7 +66,6 @@ nav {
 
 /* home page  */
 .home-container {
-  height: 100vh;
   width: 100%;
   display: block;
 }
@@ -137,6 +136,7 @@ nav {
 
 /* sign up page */
 .signup-container {
+  height: calc(100vh - 180px);
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -191,6 +191,7 @@ nav {
 
 /* log in page */
 .login-container {
+  height: calc(100vh - 180px);
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -245,7 +246,7 @@ nav {
 
 /* recipe list page */
 .recipes-container {
-  height: 100vh;
+  min-height: calc(100vh - 180px);
   background: linear-gradient(
       rgba(219, 209, 209, 0.863),
       rgba(204, 194, 194, 0.144)
@@ -275,6 +276,22 @@ nav {
   font-weight: 700;
   -webkit-text-stroke: 2px #f8afa6;
 }
+
+.pages {
+  margin: 20px 0px 0px 0px;
+}
+
+.pages > button {
+  font-weight: 700;
+  color: #f8afa6;
+  font-size: 20px;
+  border: 0;
+  background-color: transparent;
+}
+
+.pages > button:hover {
+  cursor: pointer;
+}
 .cards-box {
   display: flex;
   flex-wrap: wrap;
@@ -285,6 +302,7 @@ nav {
   display: flex;
   justify-content: center;
   width: 300px;
+  height: 120px;
   background-color: #f8afa6;
   margin: 20px;
   border-radius: 10px;
@@ -300,6 +318,7 @@ nav {
 
 .card-left > img {
   width: 100px;
+  height: 100px;
 }
 
 .card-title {
@@ -309,13 +328,22 @@ nav {
 }
 
 .card-right {
+  width: 160px;
   position: relative;
   padding-top: 10px;
   margin: 0px 10px;
 }
 .card-text {
   color: gray;
-  margin-top: 10px;
+  margin: 20px 0px;
+  font-size: 12px;
+  width: 160px;
+  word-wrap: break-word;
+}
+
+.card-text > p {
+  color: gray;
+  margin-top: 5px;
   font-size: 12px;
 }
 .fav-btn {
@@ -340,6 +368,7 @@ nav {
 
 /* detail page */
 .container {
+  min-height: calc(100vh - 180px);
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -601,16 +630,22 @@ nav {
 .profile-left {
   width: 40%;
   min-width: 340px;
-  background-color: #e8e8e4;
+  background-color: #faedcd;
   border-radius: 10px;
 }
 
 .profile-left > h3 {
   font-size: 40px;
   padding: 5px;
-  background-color: #ccd5ae;
+  background-color: #d4a373;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
+}
+
+.my-recipes {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
 }
 
 .profile-right {
@@ -626,4 +661,54 @@ nav {
   background-color: #d4a373;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
+}
+
+.favorite {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.favorite > h1 {
+  font-size: 30px;
+  margin: 30px;
+  color: #f79489;
+}
+
+/* footer */
+#footer {
+  border-top: 10px;
+  padding-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(85, 82, 82);
+  color: #fff;
+  width: 100%;
+  height: 70px;
+}
+
+.names {
+  margin: 5px 0px;
+  font-family: "Montserrat", sans-serif;
+  font-size: 15px;
+}
+
+.names > .fab {
+  font-size: 15px;
+  margin: 0px 5px;
+}
+
+.line {
+  margin: 5px 0px;
+  width: 90%;
+  border-bottom: 1px solid #fff;
+}
+
+.copyright {
+  display: flex;
+  align-items: center;
+  margin: 5px 0px;
+  font-family: "Montserrat", sans-serif;
+  font-size: 10px;
 }

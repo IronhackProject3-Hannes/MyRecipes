@@ -26,11 +26,16 @@ export default function RecipeCard(props) {
       </div>
       <div className="card-right">
         <Link to={`/recipe/${_id}`} className="card-title">
-          {strMeal}
+          {strMeal.length > 20 ? strMeal.slice(0, 20) + "..." : strMeal}
         </Link>
         <div className="card-text">
           <p>
-            {strCategory} / {strArea} / {strTags}
+            {strCategory} / {strArea} /
+          </p>
+          <p>
+            {strTags && strTags.length > 10
+              ? strTags.slice(0, 10) + "..."
+              : strTags}
           </p>
           <div className="fav-btn">
             {heart === true ? (

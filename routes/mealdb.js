@@ -83,7 +83,7 @@ function getDataFromDB(char) {
 
 router.get("/", (req, res, next) => {
   // const alphabets = "abcdefghijklmnopqrstuvwyz";
-  const alphabets = "a";
+  const alphabets = "abcdefgh";
   // for (let el of alphabets) {
   //   (async function () {
   //     const data = await getDataFromDB(el);
