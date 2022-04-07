@@ -1,23 +1,22 @@
-import axios from "axios";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 
 // here we destructure the fields from the props object
 export default function RecipeCard(props) {
   const [heart, setHeart] = useState(false);
-
-  //
-  // const userId = user._id;
-
+  const { strMeal, strTags, _id, strMealThumb, strCategory, strArea } = props;
+  const user = props.user;
   useEffect(() => {
-    if (props.favorite.includes(_id)) {
-      setHeart(true);
+    if (user) {
+      if (props.favorite.includes(_id)) {
+        setHeart(true);
+      } else {
+        setHeart(false);
+      }
     } else {
       setHeart(false);
     }
-  }, [props.favorite]);
-
-  const { strMeal, strTags, _id, strMealThumb, strCategory, strArea } = props;
+  }, [props.favorite, _id, user]);
 
   return (
     <div className="card-box">

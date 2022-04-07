@@ -13,9 +13,10 @@ export default function Profile(props) {
   const getUser = () => {
     axios
       .get("/api/auth/loggedin")
-      .then((response) => {
-        setUser(response.data);
-        setFavorite(response.data.favorite);
+      .then((res) => {
+        setUser(res.data);
+        setUsername(res.data.username);
+        setFavorite(res.data.favorite);
       })
       .catch((err) => {
         console.log(err);
@@ -26,24 +27,18 @@ export default function Profile(props) {
     getUser();
   }, []);
 
-  const getCreatedRecipes = () => {
-    const userId = props.user._id;
+  const userId = props.user._id;
+  useEffect(() => {
     axios
       .get(`/api/user/creator/${userId}`)
-      .then((response) => {
-        console.log("user created", response.data);
-        setUserRecipes(response.data);
+      .then((res) => {
+        console.log("user created", res.data);
+        setUserRecipes(res.data);
       })
       .catch((err) => console.log(err));
-  };
+  }, [userId]);
 
   useEffect(() => {
-    getCreatedRecipes();
-  }, []);
-
-  const getFavoriteRecipes = () => {
-    console.log(props.user);
-    const userId = props.user._id;
     axios
       .get(`/api/user/${userId}`)
       .then((response) => {
@@ -51,13 +46,7 @@ export default function Profile(props) {
         setRecipes(response.data);
       })
       .catch((err) => console.log(err));
-  };
-
-  useEffect(() => {
-    getFavoriteRecipes();
-  }, [props.user]);
-
-  const userId = props.user._id;
+  }, [userId, favorite]);
 
   const handleFavorite = (id) => {
     if (!favorite.includes(id)) {
@@ -65,10 +54,10 @@ export default function Profile(props) {
         .put(`/api/user/${userId}`, {
           favorite: [...favorite, id],
         })
-        .then((response) => {
+        .then((res) => {
           setFavorite([...favorite, id]);
           console.log("add fav:", favorite);
-          console.log("added user:", response.data);
+          console.log("added user:", res.data);
         })
         .catch((err) => console.log(err));
     } else {
@@ -86,9 +75,9 @@ export default function Profile(props) {
         .delete(`/api/user/${userId}`, {
           data: { favorite: [...filtedIds] },
         })
-        .then((response) => {
-          console.log("thisis res.data:", response.data);
-          setFavorite(response.data.favorite);
+        .then((res) => {
+          console.log("thisis res.data:", res.data);
+          setFavorite(res.data.favorite);
           console.log("this is fav:", favorite);
         })
         .catch((err) => console.log(err));

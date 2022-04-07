@@ -2,7 +2,7 @@ import "./App.css";
 import HomePage from "./pages/HomePage";
 import Navbar from "./components/Navbar";
 import { useState } from "react";
-import { Switch, Route, Redirect } from "react-router-dom";
+import { Switch, Route } from "react-router-dom";
 import RecipeListPage from "./pages/RecipeListPage";
 import AddRecipePage from "./pages/AddRecipePage";
 import RecipeDetailsPage from "./pages/RecipeDetailsPage";
@@ -13,7 +13,6 @@ import Login from "./pages/Login";
 import ProtectedRoute from "./components/ProtectedRoute";
 
 import Image from "./pages/Image";
-
 function App(props) {
   const [user, setUser] = useState(props.user);
 

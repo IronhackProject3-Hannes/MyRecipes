@@ -30,7 +30,7 @@ function AddImg() {
       <h2>New thumb</h2>
       <form onSubmit={handleSubmit}>
         <input type="file" />
-        {imageUrl && <img src={imageUrl} style={{ height: "200px" }} />}
+        {imageUrl && <img src={imageUrl} style={{ height: "200px" }} alt="" />}
 
         <button type="submit">upload image</button>
       </form>
