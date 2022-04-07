@@ -39,6 +39,9 @@ export default function Navbar(props) {
             </Link>
           </div>
           <div className="nav-right">
+            <Link to="/recipes">
+              <button className="nav-btn list">Recipes</button>
+            </Link>
             <Link to="/signup">
               <button className="nav-btn signup">Signup</button>
             </Link>

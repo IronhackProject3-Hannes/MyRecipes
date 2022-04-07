@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 export default function HomePage() {
   return (
@@ -7,6 +8,9 @@ export default function HomePage() {
         <div className="first-row-text">
           <h1>Welcome to MyReS</h1>
           <h2>My Recipe Scrapbook</h2>
+          <Link to="/recipes">
+            <button className="main-btn">Find your recipes</button>
+          </Link>
         </div>
       </div>
       <div className="second-row">

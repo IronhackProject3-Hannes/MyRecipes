@@ -7,7 +7,9 @@ export default function RecipeListPage(props) {
 
   const [user, setUser] = useState(props.user);
   const [recipes, setRecipes] = useState([]);
-  const [favorite, setFavorite] = useState(props.user.favorite);
+  const [favorite, setFavorite] = useState(
+    props.user ? props.user.favorite : null
+  );
   const [thisItems, setThisItems] = useState([]);
   const [thisPage, setThisPage] = useState(1);
   const [pages, setPages] = useState([]);
@@ -56,38 +58,42 @@ export default function RecipeListPage(props) {
   }, [props.user.favorite]);
 
   const handleFavorite = (id) => {
-    if (!favorite.includes(id)) {
-      axios
-        .put(`/api/user/${userId}`, {
-          favorite: [...favorite, id],
-        })
-        .then((res) => {
-          setFavorite([...favorite, id]);
-          console.log("add fav:", favorite);
-          console.log("added user:", res.data);
-        })
-        .catch((err) => console.log(err));
+    if (user) {
+      if (!favorite.includes(id)) {
+        axios
+          .put(`/api/user/${userId}`, {
+            favorite: [...favorite, id],
+          })
+          .then((res) => {
+            setFavorite([...favorite, id]);
+            console.log("add fav:", favorite);
+            console.log("added user:", res.data);
+          })
+          .catch((err) => console.log(err));
+      } else {
+        const filtedIds = favorite.filter((el) => {
+          if (el !== id) {
+            console.log(el);
+            console.log(id);
+            return true;
+          } else {
+            return false;
+          }
+        });
+        console.log(filtedIds);
+        axios
+          .delete(`/api/user/${userId}`, {
+            data: { favorite: [...filtedIds] },
+          })
+          .then((res) => {
+            console.log("thisis res.data:", res.data);
+            setFavorite(res.data.favorite);
+            console.log("this is fav:", favorite);
+          })
+          .catch((err) => console.log(err));
+      }
     } else {
-      const filtedIds = favorite.filter((el) => {
-        if (el !== id) {
-          console.log(el);
-          console.log(id);
-          return true;
-        } else {
-          return false;
-        }
-      });
-      console.log(filtedIds);
-      axios
-        .delete(`/api/user/${userId}`, {
-          data: { favorite: [...filtedIds] },
-        })
-        .then((res) => {
-          console.log("thisis res.data:", res.data);
-          setFavorite(res.data.favorite);
-          console.log("this is fav:", favorite);
-        })
-        .catch((err) => console.log(err));
+      setFavorite(null);
     }
   };
 

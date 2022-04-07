@@ -134,6 +134,23 @@ nav {
   background-size: cover;
 }
 
+.main-btn {
+  margin: 30px;
+  width: 200px;
+  height: 40px;
+  color: #f9f1f0;
+  background-color: #f8afa6;
+  border: 0;
+  border-radius: 50px;
+  font-size: 20px;
+  font-weight: 700;
+  font-family: "Ubuntu", sans-serif;
+}
+
+.main-btn:hover {
+  cursor: pointer;
+}
+
 /* sign up page */
 .signup-container {
   height: calc(100vh - 180px);
