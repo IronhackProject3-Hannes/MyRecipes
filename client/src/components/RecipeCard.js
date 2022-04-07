@@ -1,4 +1,3 @@
-import axios from "axios";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 
@@ -8,6 +7,7 @@ export default function RecipeCard(props) {
 
   //
   // const userId = user._id;
+  const { strMeal, strTags, _id, strMealThumb, strCategory, strArea } = props;
 
   useEffect(() => {
     if (props.favorite.includes(_id)) {
@@ -15,9 +15,7 @@ export default function RecipeCard(props) {
     } else {
       setHeart(false);
     }
-  }, [props.favorite]);
-
-  const { strMeal, strTags, _id, strMealThumb, strCategory, strArea } = props;
+  }, [props.favorite, _id]);
 
   return (
     <div className="card-box">

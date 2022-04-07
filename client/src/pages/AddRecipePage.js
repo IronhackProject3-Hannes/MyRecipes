@@ -166,7 +166,9 @@ export default function AddProject(props) {
             <td className="row-left">Image Preview</td>
             <td className="row-right image-preview">
               {" "}
-              {imageUrl && <img src={imageUrl} style={{ height: "100px" }} />}
+              {imageUrl && (
+                <img src={imageUrl} style={{ height: "100px" }} alt="" />
+              )}
             </td>
           </tr>
           <tr className="add-row">

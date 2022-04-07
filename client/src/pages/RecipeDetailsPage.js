@@ -7,19 +7,15 @@ export default function ProjectDetailsPage(props) {
 
   const recipeId = props.match.params.id;
 
-  const getRecipe = () => {
+  useEffect(() => {
     axios
       .get(`/api/recipes/${recipeId}`)
-      .then((response) => {
-        console.log(response.data);
-        setRecipe(response.data);
+      .then((res) => {
+        console.log(res.data);
+        setRecipe(res.data);
       })
       .catch((err) => console.log(err));
-  };
-
-  useEffect(() => {
-    getRecipe();
-  }, []);
+  }, [recipeId]);
 
   return (
     <div className="container">
@@ -28,7 +24,7 @@ export default function ProjectDetailsPage(props) {
           <h1>{recipe.strMeal}</h1>
           <div className="detail-container">
             <div className="detail-left">
-              <img src={recipe.strMealThumb} />
+              <img src={recipe.strMealThumb} alt="" />
               <h4 className="category">Category : {recipe.strCategory}</h4>
               <h4 className="area">Area : {recipe.strArea}</h4>
               <h4 className="tags">Tags : {recipe.strTags}</h4>

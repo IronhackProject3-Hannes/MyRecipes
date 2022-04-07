@@ -19,7 +19,8 @@ const handleUpload = (file) => {
     .catch(errorHandler);
 };
 
-export default {
+const exportedObject = {
   service,
   handleUpload,
 };
+export default exportedObject;

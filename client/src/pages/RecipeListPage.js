@@ -17,9 +17,9 @@ export default function RecipeListPage(props) {
   const getUser = () => {
     axios
       .get("/api/auth/loggedin")
-      .then((response) => {
-        setUser(response.data);
-        setFavorite(response.data.favorite);
+      .then((res) => {
+        setUser(res.data);
+        setFavorite(res.data.favorite);
       })
       .catch((err) => {
         console.log(err);
@@ -28,16 +28,16 @@ export default function RecipeListPage(props) {
 
   useEffect(() => {
     getUser();
-  }, []);
+  }, [user]);
 
   //get all recipes <= functions
   const getAllRecipes = () => {
     // get request to the server
     axios
       .get(`/api/recipes`)
-      .then((response) => {
-        console.log(response);
-        setRecipes(response.data);
+      .then((res) => {
+        console.log(res);
+        setRecipes(res.data);
       })
       .catch((err) => console.log(err));
   };
@@ -50,13 +50,10 @@ export default function RecipeListPage(props) {
   }, []);
 
   // handle favorite recipes <= functions
-  const getFavorite = () => {
-    setFavorite(props.user.favorite);
-  };
 
   useEffect(() => {
-    getFavorite();
-  }, [props.user]);
+    setFavorite(props.user.favorite);
+  }, [props.user.favorite]);
 
   const handleFavorite = (id) => {
     if (!favorite.includes(id)) {
@@ -64,10 +61,10 @@ export default function RecipeListPage(props) {
         .put(`/api/user/${userId}`, {
           favorite: [...favorite, id],
         })
-        .then((response) => {
+        .then((res) => {
           setFavorite([...favorite, id]);
           console.log("add fav:", favorite);
-          console.log("added user:", response.data);
+          console.log("added user:", res.data);
         })
         .catch((err) => console.log(err));
     } else {
@@ -85,9 +82,9 @@ export default function RecipeListPage(props) {
         .delete(`/api/user/${userId}`, {
           data: { favorite: [...filtedIds] },
         })
-        .then((response) => {
-          console.log("thisis res.data:", response.data);
-          setFavorite(response.data.favorite);
+        .then((res) => {
+          console.log("thisis res.data:", res.data);
+          setFavorite(res.data.favorite);
           console.log("this is fav:", favorite);
         })
         .catch((err) => console.log(err));
@@ -97,57 +94,52 @@ export default function RecipeListPage(props) {
   //search with name, category, area and tags
   const [search, setSearch] = useState("");
 
-  const filteredRecipe = () => {
-    console.log(search);
-    return recipes
-      .sort((a, b) => {
-        return a.strMeal.localeCompare(b.strMeal);
-      })
-      .filter((recipe) =>
-        `${recipe.strMeal}${recipe.strCategory}${recipe.strArea}${recipe.strTags}`
-          .toLowerCase()
-          .includes(search.toLowerCase())
-      );
-  };
-
   useEffect(() => {
-    filteredRecipe();
-  }, [search]);
-
-  // only 20 items in one page
-  const handleItems = () => {
-    if (filteredRecipe().length > 20) {
-      console.log(filteredRecipe());
-      setThisItems(
-        filteredRecipe().slice((thisPage - 1) * 20, (thisPage - 1) * 20 + 20)
-      );
-    } else {
-      setThisItems(filteredRecipe());
-    }
-  };
-
-  const getPages = () => {
-    if (filteredRecipe().length > 20) {
-      const totalPages = Math.floor(filteredRecipe().length / 20) + 1;
-      const pagesArr = [];
-      for (let i = 1; i <= totalPages; i++) {
-        pagesArr.push(i);
+    const filteredRecipe = () => {
+      console.log(search);
+      return recipes
+        .sort((a, b) => {
+          return a.strMeal.localeCompare(b.strMeal);
+        })
+        .filter((recipe) =>
+          `${recipe.strMeal}${recipe.strCategory}${recipe.strArea}${recipe.strTags}`
+            .toLowerCase()
+            .includes(search.toLowerCase())
+        );
+    };
+    // only 20 items in one page
+    const handleItems = () => {
+      if (filteredRecipe().length > 20) {
+        console.log(filteredRecipe());
+        setThisItems(
+          filteredRecipe().slice((thisPage - 1) * 20, (thisPage - 1) * 20 + 20)
+        );
+      } else {
+        setThisItems(filteredRecipe());
       }
-      setPages(pagesArr);
-      console.log(pages);
-    } else {
-      setPages([1]);
-    }
-  };
+    };
+
+    const getPages = () => {
+      if (filteredRecipe().length > 20) {
+        const totalPages = Math.floor(filteredRecipe().length / 20) + 1;
+        const pagesArr = [];
+        for (let i = 1; i <= totalPages; i++) {
+          pagesArr.push(i);
+        }
+        setPages(pagesArr);
+        console.log(pages);
+      } else {
+        setPages([1]);
+      }
+    };
+    filteredRecipe();
+    handleItems();
+    getPages();
+  }, [thisPage, recipes, search, pages]);
 
   const handleThisPage = (e) => {
     setThisPage(e.target.value);
   };
-
-  useEffect(() => {
-    handleItems();
-    getPages();
-  }, [thisPage, recipes, search]);
 
   return (
     <div className="recipes-container">
