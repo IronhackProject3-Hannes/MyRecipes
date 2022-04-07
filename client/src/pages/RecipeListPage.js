@@ -30,7 +30,7 @@ export default function RecipeListPage(props) {
 
   useEffect(() => {
     getUser();
-  }, [user]);
+  }, []);
 
   //get all recipes <= functions
   const getAllRecipes = () => {

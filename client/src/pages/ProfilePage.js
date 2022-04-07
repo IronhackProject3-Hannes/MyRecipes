@@ -25,7 +25,7 @@ export default function Profile(props) {
 
   useEffect(() => {
     getUser();
-  }, [user]);
+  }, []);
 
   const userId = props.user._id;
   useEffect(() => {
